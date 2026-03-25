@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Audit Fisioterapi — KKM</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"><\/script>
+<style>
+:root{--bg:#f4f2ed;--sur:#fff;--sur2:#f0ede6;--bor:#d8d4cc;--bor2:#c8c4bc;--tx:#1a1916;--tx2:#5a5750;--tx3:#9a9590;--acc:#1a3a5c;--acc2:#2d5f8a;--gn:#2a5c3f;--am:#7a4a0a;--rd:#7a1a1a;--bl:#1a3a5c;--r1b:#fde8e8;--r1t:#7a1a1a;--r1o:#e8a0a0;--r2b:#fef3e0;--r2t:#7a4a0a;--r2o:#f0c060;--r3b:#e8f4ec;--r3t:#2a5c3f;--r3o:#80c090;--r4b:#e8eef6;--r4t:#1a3a5c;--r4o:#80a8d0;--fn:'IBM Plex Sans',sans-serif;--mo:'IBM Plex Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);font-size:14px;line-height:1.6}
+.hdr{background:var(--acc);color:#fff}
+.hdr-in{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;gap:14px}
+.hdr-logo{width:38px;height:38px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mo);font-size:15px;color:#fff;flex-shrink:0}
+.hdr-t h1{font-size:15px;font-weight:600;color:#fff;letter-spacing:.02em}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.55);margin-top:1px}
+.hdr-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:3px 9px;font-size:10px;color:rgba(255,255,255,.7);font-family:var(--mo);white-space:nowrap;margin-left:auto}
+.nav-w{background:var(--sur);border-bottom:1px solid var(--bor);position:sticky;top:0;z-index:100}
+.nav{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;overflow-x:auto}
+.nb{padding:11px 15px;border:none;background:transparent;color:var(--tx2);font-family:var(--fn);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;letter-spacing:.03em;text-transform:uppercase}
+.nb:hover{color:var(--tx);background:var(--sur2)}
+.nb.on{color:var(--acc);border-bottom-color:var(--acc)}
+.main{max-width:1200px;margin:0 auto;padding:22px}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--sur);border:1px solid var(--bor);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.ch{padding:11px 17px;background:var(--sur2);border-bottom:1px solid var(--bor);display:flex;justify-content:space-between;align-items:center}
+.ct{font-size:11px;font-weight:600;color:var(--tx);text-transform:uppercase;letter-spacing:.05em}
+.cs{font-family:var(--mo);font-size:11px;color:var(--tx2)}
+.istrip{background:#e8eef6;border:1px solid var(--r4o);border-radius:8px;padding:9px 15px;margin-bottom:14px;font-size:12px;color:var(--bl);line-height:1.7}
+.fg4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px;margin-bottom:14px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.ff label{font-size:10px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:3px}
+.ff input,.ff select,.ff textarea{width:100%;padding:6px 9px;border:1px solid var(--bor);border-radius:5px;background:var(--sur);color:var(--tx);font-size:12px;font-family:var(--fn);outline:none}
+.ff input:focus,.ff textarea:focus{border-color:var(--acc2)}
+.ff textarea{resize:vertical;min-height:54px}
+.ir{padding:9px 17px;border-bottom:1px solid var(--bor);transition:background .1s}
+.ir:last-child{border-bottom:none}
+.ir:hover{background:var(--sur2)}
+.il{font-size:12px;color:var(--tx);line-height:1.45;margin-bottom:5px}
+.ic{display:flex;gap:7px;align-items:flex-start;flex-wrap:wrap}
+.rg{display:flex;gap:3px}
+.rb{padding:4px 9px;border:1px solid var(--bor2);border-radius:4px;background:transparent;color:var(--tx2);font-size:11px;font-family:var(--mo);font-weight:500;cursor:pointer;transition:all .12s}
+.rb:hover{border-color:var(--acc2);color:var(--acc)}
+.rb.r1.on{background:var(--r1b);color:var(--r1t);border-color:var(--r1o)}
+.rb.r2.on{background:var(--r2b);color:var(--r2t);border-color:var(--r2o)}
+.rb.r3.on{background:var(--r3b);color:var(--r3t);border-color:var(--r3o)}
+.rb.r4.on{background:var(--r4b);color:var(--r4t);border-color:var(--r4o)}
+.rb.rna.on{background:var(--sur2);color:var(--tx2);border-color:var(--bor2)}
+.rb.d0.on{background:var(--r1b);color:var(--r1t);border-color:var(--r1o)}
+.rb.d1.on{background:var(--r2b);color:var(--r2t);border-color:var(--r2o)}
+.rb.d2.on{background:var(--r3b);color:var(--r3t);border-color:var(--r3o)}
+.rb.p1.on{background:var(--r1b);color:var(--r1t);border-color:var(--r1o)}
+.rb.p2.on{background:var(--r2b);color:var(--r2t);border-color:var(--r2o)}
+.rb.p3.on{background:var(--r3b);color:var(--r3t);border-color:var(--r3o)}
+.ita{flex:1;min-width:160px;padding:4px 7px;border:1px solid var(--bor);border-radius:4px;background:var(--sur);color:var(--tx);font-size:11px;font-family:var(--fn);resize:none;min-height:36px;outline:none}
+.ita:focus{border-color:var(--acc2)}
+.brow{display:flex;gap:8px;justify-content:flex-end;padding:6px 0 14px}
+.bp{padding:8px 20px;background:var(--acc);color:#fff;border:1px solid var(--acc);border-radius:5px;font-size:12px;font-weight:600;font-family:var(--fn);cursor:pointer;text-transform:uppercase;letter-spacing:.04em}
+.bp:hover{background:var(--acc2)}
+.bs{padding:8px 20px;background:transparent;color:var(--tx2);border:1px solid var(--bor2);border-radius:5px;font-size:12px;font-family:var(--fn);cursor:pointer}
+.bs:hover{border-color:var(--acc2);color:var(--acc)}
+.stabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.stb{padding:5px 13px;border:1px solid var(--bor);border-radius:5px;background:transparent;color:var(--tx2);font-size:11px;font-family:var(--fn);font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:all .15s}
+.stb.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.mets{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:14px}
+.met{background:var(--sur);border:1px solid var(--bor);border-radius:8px;padding:12px 15px}
+.ml{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px}
+.mv{font-size:24px;font-weight:600;font-family:var(--mo);color:var(--tx);line-height:1}
+.ms{font-size:10px;color:var(--tx3);margin-top:3px}
+.pr{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.pn{font-size:11px;color:var(--tx2);width:185px;flex-shrink:0;line-height:1.3}
+.pt{flex:1;height:6px;background:var(--sur2);border-radius:3px;overflow:hidden;border:1px solid var(--bor)}
+.pf{height:100%;border-radius:3px;transition:width .5s}
+.pp{font-family:var(--mo);font-size:11px;color:var(--tx);width:32px;text-align:right}
+.wi1{padding:7px 11px;border-left:3px solid var(--r1o);background:var(--r1b);border-radius:0 5px 5px 0;margin-bottom:4px}
+.wi2{padding:7px 11px;border-left:3px solid var(--r2o);background:var(--r2b);border-radius:0 5px 5px 0;margin-bottom:4px}
+.wl{font-size:11px;color:var(--tx)}
+.wm{font-size:10px;color:var(--tx3);margin-top:1px}
+.badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-family:var(--mo);font-weight:500;margin-left:5px}
+.b1{background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o)}
+.b2{background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o)}
+.b3{background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o)}
+.b4{background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o)}
+.rtag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-family:var(--mo);font-weight:500}
+.rc{background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o)}
+.rb_{background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o)}
+.rs{background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o)}
+.rl{background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o)}
+.htbl{width:100%;border-collapse:collapse}
+.htbl th{padding:7px 13px;background:var(--sur2);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);text-align:left;border-bottom:1px solid var(--bor)}
+.htbl td{padding:8px 13px;font-size:12px;border-bottom:1px solid var(--bor);color:var(--tx)}
+.htbl tr:last-child td{border-bottom:none}
+.htbl tr:hover td{background:var(--sur2)}
+.pd-r{padding:9px 17px;border-bottom:1px solid var(--bor)}
+.pd-r:last-child{border-bottom:none}
+.pd-i{font-size:12px;font-weight:600;color:var(--tx)}
+.pd-d{font-size:11px;color:var(--tx2);margin-top:2px;line-height:1.55}
+.sdiv{border-left:3px solid var(--acc);padding-left:9px;margin:13px 17px 5px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--acc)}
+.es{text-align:center;padding:28px;color:var(--tx3);font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:6px}
+/* Fas detail */
+.fd{background:var(--sur2);border:1px solid var(--bor);border-radius:6px;padding:11px 15px;margin-top:4px;margin-bottom:12px}
+.fd-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin-bottom:11px}
+.fd-lbl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.fd-val{font-size:12px;font-weight:500}
+.dist-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.dtag{font-size:10px;padding:2px 7px;border-radius:3px;font-family:var(--mo)}
+.item-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.item-tbl th{padding:4px 7px;background:var(--sur2);border:1px solid var(--bor);font-size:10px;text-align:left}
+.item-tbl td{padding:4px 7px;border:1px solid var(--bor)}
+.fas-row{cursor:pointer;margin-bottom:3px}
+.fas-header{display:flex;align-items:center;gap:7px;margin-bottom:7px;padding:8px 11px;background:var(--sur);border:1px solid var(--bor);border-radius:6px}
+details summary{cursor:pointer;font-size:11px;font-weight:600;color:var(--acc);padding:6px 0}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-logo">Fy</div>
+    <div class="hdr-t"><h1>Sistem Audit Perkhidmatan Fisioterapi</h1><p>Bahagian Sains Kesihatan Bersekutu — Kementerian Kesihatan Malaysia</p></div>
+    <div class="hdr-badge">JKTFS 2026</div>
+  </div>
+</div>
+<div class="nav-w">
+  <div class="nav">
+    <button class="nb on" onclick="sp('b1')">Borang Perkhidmatan</button>
+    <button class="nb" onclick="sp('b2')">Audit Dokumentasi</button>
+    <button class="nb" onclick="sp('b3')">Audit Personel</button>
+    <button class="nb" onclick="sp('dash')">Dashboard</button>
+    <button class="nb" onclick="sp('pan')">Panduan</button>
+    <button class="nb" onclick="sp('hist')">Sejarah Audit</button>
+  </div>
+</div>
+<div class="main">
+
+<!-- BORANG 1 -->
+<div id="pg-b1" class="pg on">
+  <div class="istrip"><b>Borang Audit Perkhidmatan Profesion Fisioterapi</b> — Bahagian Sains Kesihatan Bersekutu, KKM &nbsp;|&nbsp; <b>1</b> Rendah &nbsp; <b>2</b> Sederhana &nbsp; <b>3</b> Baik &nbsp; <b>4</b> Cemerlang &nbsp; <b>N/A</b></div>
+  <div class="fg4">
+    <div class="ff"><label>Nama Fasiliti / Hospital</label><input id="b1-f" type="text" placeholder="Hospital / Klinik"></div>
+    <div class="ff"><label>Tarikh Audit</label><input id="b1-d" type="date"></div>
+    <div class="ff"><label>Nama Auditor</label><input id="b1-au" type="text"></div>
+    <div class="ff"><label>Nama Auditee</label><input id="b1-ae" type="text"></div>
+  </div>
+  <div id="b1-body"></div>
+  <div class="card"><div class="ch"><span class="ct">Ruangan Tambahan</span></div>
+    <div style="padding:13px 17px"><div class="two">
+      <div class="ff"><label>Lain-lain Penemuan</label><textarea id="b1-la"></textarea></div>
+      <div class="ff"><label>Kesimpulan</label><textarea id="b1-ke"></textarea></div>
+      <div class="ff"><label>Catatan</label><textarea id="b1-ca"></textarea></div>
+      <div class="ff"><label>Cadangan</label><textarea id="b1-cd"></textarea></div>
+    </div></div>
+  </div>
+  <div class="brow"><button class="bs" onclick="rb(1)">Set Semula</button><button class="bp" onclick="sv(1)">Simpan &amp; Lihat Dashboard</button></div>
+</div>
+
+<!-- BORANG 2 -->
+<div id="pg-b2" class="pg">
+  <div class="istrip"><b>Physiotherapy Clinical Documentation Audit Form</b> — Allied Health Sciences Division, MOH &nbsp;|&nbsp; <b>0</b> Not Filled &nbsp; <b>1</b> Incomplete &nbsp; <b>2</b> Complete &nbsp; <b>N/A</b></div>
+  <div class="fg4">
+    <div class="ff"><label>Fasiliti</label><input id="b2-f" type="text" placeholder="Hospital / Klinik"></div>
+    <div class="ff"><label>Tarikh</label><input id="b2-d" type="date"></div>
+    <div class="ff"><label>Nama Evaluator</label><input id="b2-ev" type="text"></div>
+    <div class="ff"><label>Jawatan</label><input id="b2-jw" type="text"></div>
+  </div>
+  <div id="b2-body"></div>
+  <div class="card"><div class="ch"><span class="ct">Other Comments</span></div>
+    <div style="padding:13px 17px"><div class="ff"><textarea id="b2-ko" placeholder="Additional comments..." style="min-height:64px"></textarea></div></div>
+  </div>
+  <div class="brow"><button class="bs" onclick="rb(2)">Reset</button><button class="bp" onclick="sv(2)">Save &amp; View Dashboard</button></div>
+</div>
+
+<!-- BORANG 3 -->
+<div id="pg-b3" class="pg">
+  <div class="istrip"><b>Borang Audit Personel Profesion Fisioterapi</b> — Bahagian Sains Kesihatan Bersekutu, KKM &nbsp;|&nbsp; <b>1</b> Kurang Memuaskan &nbsp; <b>2</b> Memuaskan &nbsp; <b>3</b> Baik</div>
+  <div class="fg4">
+    <div class="ff"><label>Tarikh</label><input id="b3-d" type="date"></div>
+    <div class="ff"><label>Nama Staf (PYD)</label><input id="b3-pyd" type="text" placeholder="Nama penuh staf"></div>
+    <div class="ff"><label>Nama Penyelia</label><input id="b3-pen" type="text"></div>
+    <div class="ff"><label>Unit / Fasiliti</label><input id="b3-f" type="text"></div>
+  </div>
+  <div id="b3-body"></div>
+  <div class="card"><div class="ch"><span class="ct">Ulasan Keseluruhan</span></div>
+    <div style="padding:13px 17px"><div class="ff"><textarea id="b3-ul" placeholder="Ulasan penyelia..." style="min-height:64px"></textarea></div></div>
+  </div>
+  <div class="brow"><button class="bs" onclick="rb(3)">Set Semula</button><button class="bp" onclick="sv(3)">Simpan</button></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="pg-dash" class="pg">
+  <div class="stabs">
+    <button class="stb on" onclick="sdash('d1',this)">Perkhidmatan</button>
+    <button class="stb" onclick="sdash('d2',this)">Dokumentasi</button>
+    <button class="stb" onclick="sdash('d3',this)">Personel</button>
+  </div>
+  <div id="dash-d1"></div>
+  <div id="dash-d2" style="display:none"></div>
+  <div id="dash-d3" style="display:none"></div>
+</div>
+
+<!-- PANDUAN -->
+<div id="pg-pan" class="pg">
+  <div class="stabs">
+    <button class="stb on" onclick="span2('p1',this)">Panduan Perkhidmatan</button>
+    <button class="stb" onclick="span2('p2',this)">Panduan Dokumentasi</button>
+  </div>
+  <div id="pan-p1"></div>
+  <div id="pan-p2" style="display:none"></div>
+</div>
+
+<!-- SEJARAH -->
+<div id="pg-hist" class="pg">
+  <div class="stabs">
+    <button class="stb on" onclick="shist('h1',this)">Perkhidmatan</button>
+    <button class="stb" onclick="shist('h2',this)">Dokumentasi</button>
+    <button class="stb" onclick="shist('h3',this)">Personel</button>
+  </div>
+  <div id="hist-h1"></div>
+  <div id="hist-h2" style="display:none"></div>
+  <div id="hist-h3" style="display:none"></div>
+</div>
+
+</div>
+<script>
+
+// ===== SECTION DATA =====
+const S1=[
+  {id:'s1',t:'1 — Pengurusan Organisasi',items:[
+    {id:'1a',l:'a) Carta organisasi hospital / jabatan dikemaskini (diperaku & bertarikh)'},
+    {id:'1b',l:'b) Visi / misi – dipamerkan & kemaskini (diperaku & bertarikh)'},
+    {id:'1c',l:'c) Objektif unit (diperaku & bertarikh)'},
+    {id:'1d',l:'d) Sistem fail akreditasi / MS ISO 9001 kemaskini & terkini'},
+    {id:'1e1',l:'e-i) Fail peribadi'},
+    {id:'1e2',l:'e-ii) Fail belanjawan (aset perubatan / harta modal / aset bernilai rendah)'},
+    {id:'1e3',l:'e-iii) Fail pekeliling'},
+    {id:'1e4',l:'e-iv) Fail statistik'},
+    {id:'1e5',l:'e-v) Fail pelatih fisioterapi (rujuk Student Information Package)'},
+    {id:'1e6',l:'e-vi) Fail latihan & continuous medical education'},
+    {id:'1f0',l:'Piagam pelanggan dipamerkan'},
+    {id:'1f',l:'f) Pengurusan aduan – carta alir & proses dipamerkan'},
+    {id:'1g',l:'g) Pengurusan statistik dan SMRP'},
+    {id:'1h',l:'h) Mesyuarat jabatan/unit — surat panggilan, minit, maklumbalas, kehadiran, akuan membaca minit'},
+    {id:'1i',l:'i) Dokumentasi pesakit menggunakan borang penilaian fisioterapi yang betul, lengkap dan format POMR'},
+    {id:'1j',l:'j) Penyampaian maklumat — minit mesyuarat jabatan/unit & papan informasi'},
+  ]},
+  {id:'s2',t:'2 — Polisi dan Prosedur',items:[
+    {id:'2a',l:'a) Polisi jabatan/unit dikemaskini dan terkini (diperaku & bertarikh)'},
+    {id:'2b',l:'b) Bukti penyampaian maklumat ada & mudah dirujuk (akuan membaca)'},
+    {id:'2c',l:'c) Fisioterapi care protocol ada & mudah dirujuk'},
+    {id:'2d',l:'d) Standard Operating Prosedur ada & mudah dirujuk'},
+    {id:'2e',l:'e) Orientasi dan consent pesakit / modul orientasi'},
+    {id:'2f',l:'f) Hak dan privasi pesakit (dipamerkan)'},
+  ]},
+  {id:'s3',t:'3 — Fasiliti dan Kelengkapan',items:[
+    {id:'3a',l:'a) Penggunaan KEWPA'},
+    {id:'3b',l:'b) Fail pelupusan'},
+    {id:'3c',l:'c) Penjagaan aset (PPM dijalankan mengikut jadual)'},
+    {id:'3d',l:'d) Pengurusan stor dan stok teratur dan direkodkan'},
+    {id:'3e',l:'e) Sistem panggilan kecemasan – code blue / carta alir'},
+    {id:'3f',l:'f) Tandas sesuai untuk OKU — grab bar & emergency call bell berfungsi'},
+  ]},
+  {id:'s4',t:'4 — Peningkatan Aktiviti Kualiti & Keselamatan',items:[
+    {id:'4a',l:'a) Pengumpulan data NIA/KPI — data, pemantauan, laporan BSKB/BPKK, SIQ/RCA'},
+    {id:'4b',l:'b) Semakan laporan audit personel (rujuk borang audit personel)'},
+    {id:'4c',l:'c) Inovasi / KIK / QAP / Clinical Audit / EKSA / Pain Free'},
+    {id:'4d',l:'d) Kajian kepuasan pelanggan (2 kali setahun)'},
+    {id:'4e',l:'e) Kajian piagam pelanggan (1 kali setahun)'},
+    {id:'4f',l:'f) Latihan keselamatan & kesihatan — semua kakitangan hadir'},
+    {id:'4fi',l:'f-i) Pelan Tindakan Kecemasan Kebakaran & Bencana (polisi, floor plan, fire extinguisher, tarikh luput)'},
+    {id:'4fii',l:'f-ii) BLS'},
+    {id:'4fiii',l:'f-iii) Infection Control'},
+    {id:'4i',l:'i) Incident Reporting / RCA'},
+    {id:'4j',l:'j) Penilaian HIRARC bagi rawatan/prosedur berisiko (jika berkenaan)'},
+  ]},
+  {id:'s5',t:'5 — Sumber Manusia',items:[
+    {id:'5a',l:'a) Surat lantikan ketua unit/jabatan dan deskripsi tugas'},
+    {id:'5b',l:'b) MyPortfolio dikemaskini dan terkini'},
+    {id:'5c',l:'c) Surat lantikan (AJK, jawatankuasa dan lain-lain)'},
+    {id:'5d',l:'d) Mempunyai sijil pendaftaran dan amalan MAHPC terkini'},
+    {id:'5e',l:'e) Orientasi anggota baru'},
+    {id:'5f',l:'f) Fail CPD'},
+    {id:'5g',l:'g) Credentialing / Privileging'},
+    {id:'5h',l:'h) Program mentor/kompetensi — jadual penyeliaan & laporan (jika berkenaan)'},
+    {id:'5i',l:'i) Perancangan kursus tahunan'},
+    {id:'5j',l:'j) Jadual tugas'},
+    {id:'5k',l:'k) Pengurusan cuti anggota'},
+    {id:'5l',l:'l) Etika pemakaian kakitangan kerajaan'},
+  ]}
+];
+const S2=[
+  {id:'pa',t:'Part A — Clinical Documentation',items:[
+    {id:'d1',l:'1. Appropriate Assessment Form is used'},
+    {id:'d2',l:'2. Presenting condition / problem is well documented'},
+    {id:'d3',l:'3. Pain is well documented (characteristic, scale: VAS/NRS/Wong Baker/FLACC)'},
+    {id:'d4',l:'4. Relevant symptoms are marked on the body chart'},
+    {id:'d5',l:'5. Special questions are addressed (general health, past history, medication etc.)'},
+    {id:'d6',l:'6. Current history is well documented (onset, mechanism of injury)'},
+    {id:'d7',l:'7. Past history is well documented (if relevant)'},
+    {id:'d8',l:'8. Observation is relevant and well documented (posture, gait, local findings)'},
+    {id:'d9',l:'9. Palpation is relevant and well documented (warmth, swelling, crepitus, spasm)'},
+    {id:'d10',l:'10. Specific assessment tools & outcome measures are well documented (MMT, ROM, Oswestry, MAS etc.)'},
+    {id:'d11',l:"11. Physiotherapist's Impression is adequately recorded"},
+    {id:'d12a',l:'12.1 Goals — Short term (specific aspects by priority)'},
+    {id:'d12b',l:'12.2 Goals — Long term (realistic approach to prognosis)'},
+    {id:'d13',l:'13. Treatment plan is well recorded'},
+    {id:'d14',l:'14. Evidence of informed consent obtained from patient'},
+    {id:'d15',l:'15. Interventions implemented according to the treatment plan'},
+    {id:'d16',l:'16. Evidence of all dispensed advice / patient education'},
+    {id:'d17',l:'17. Subjective markers reviewed at each session'},
+    {id:'d18',l:'18. Objective markers reviewed at each session'},
+    {id:'d19',l:'19. Analysis of problem is recorded (ICIDH model)'},
+    {id:'d20',l:'20. Changes in treatment plan are well documented'},
+    {id:'d21',l:'21. Discharge plan is adequately recorded'},
+    {id:'d22',l:'22. Documentation of every visit (SOAP format)'},
+    {id:'d23a',l:'23.1 Documented records are Concise'},
+    {id:'d23b',l:'23.2 Legible — clear enough to be read'},
+    {id:'d23c',l:'23.3 Logical sequence — chronologically recorded'},
+    {id:'d24',l:'24. Assessment forms Signed & Stamped after each entry (MAHPC number & date)'},
+  ]},
+  {id:'pb',t:'Part B — SOP & Protocols',items:[
+    {id:'d25a',l:'25.1 Standard Operating Procedures — all 8 SOPs (Neuro, MS, Geriatric, Respiratory, Sports, Pediatric, Urinary, Operational)'},
+    {id:'d25b',l:'25.2 Physiotherapy Care Protocols — endorsed by Physiotherapy Technical Committee'},
+    {id:'d25c',l:'25.3 Best Statements — concise practical clinical guidelines, staff aware and apply'},
+  ]}
+];
+const S3=[
+  {id:'p1',t:'Bahagian 1 — Pengurusan Klinikal',items:[
+    {id:'p1a',l:'a) Pengetahuan berkaitan diagnosis / sejarah pesakit'},
+    {id:'p1b',l:'b) Borang penilaian fisioterapi digunakan dan tepat'},
+    {id:'p1c',l:'c) Penilaian subjektif'},
+    {id:'p1d',l:'d) Penilaian objektif'},
+    {id:'p1e',l:'e) Kemahiran penggunaan alat pengukur'},
+    {id:'p1f',l:'f) Analisis dan mengenalpasti masalah'},
+    {id:'p1g',l:'g) Rancang rawatan'},
+    {id:'p1h',l:'h) Pemilihan rawatan'},
+    {id:'p1i',l:'i) Kemahiran aplikasi alat rawatan'},
+    {id:'p1j',l:'j) Kemahiran aplikasi teknik rawatan'},
+    {id:'p1k',l:'k) Pendidikan pesakit'},
+    {id:'p1l',l:'l) Privasi pesakit'},
+    {id:'p1m',l:'m) Aspek keselamatan'},
+    {id:'p1n',l:'n) Kemahiran komunikasi'},
+    {id:'p1o',l:'o) Mencapai ketetapan bilangan pesakit yang disasarkan'},
+    {id:'p1p',l:'p) Menjalankan tugas mengikut jadual yang diarahkan'},
+  ]},
+  {id:'p2',t:'Bahagian 2 — Pengurusan Aktiviti Kualiti',items:[
+    {id:'p2a',l:'a) Pengisian Statistik / SMRP / Reten'},
+    {id:'p2b',l:'b) Pengisian KPI dan NIA'},
+    {id:'p2c',l:'c) Penglibatan aktiviti kualiti fasiliti (Akreditasi, ISO, KIK, QAP, Kajian, Lean)'},
+  ]},
+  {id:'p3',t:'Bahagian 3 — Kualiti Peribadi',items:[
+    {id:'p3a',l:'a) Mematuhi peraturan / arahan'},
+    {id:'p3b',l:'b) Komitmen dan kesungguhan menjalankan tugas'},
+    {id:'p3c',l:'c) Sikap diri / tingkah laku'},
+    {id:'p3d',l:'d) Pakaian kekemasan / mengikut etika kerja'},
+    {id:'p3e',l:'e) Kehadiran / menepati masa'},
+    {id:'p3f',l:'f) Pengurusan cuti'},
+  ]},
+  {id:'p4',t:'Bahagian 4 — Kepimpinan',items:[
+    {id:'p4a',l:'a) Membuat keputusan'},
+    {id:'p4b',l:'b) Penyelesaian masalah'},
+    {id:'p4c',l:'c) Proaktif'},
+    {id:'p4d',l:'d) Kebolehan membuat keputusan'},
+  ]},
+  {id:'p5',t:'Bahagian 5 — Jalinan Hubungan & Kerjasama',items:[
+    {id:'p5a',l:'a) Kakitangan dalam unit / jabatan'},
+    {id:'p5b',l:'b) Kakitangan luar unit / jabatan'},
+    {id:'p5c',l:'c) Pesakit dan waris'},
+  ]}
+];
+const PAN1=[
+  {s:'PENGURUSAN ORGANISASI'},
+  {i:'a. Carta Organisasi',d:'Carta organisasi yang terkini, menunjukkan hubungan pelaporan, disahkan dan bertarikh.'},
+  {i:'b. Visi / Misi',d:'Dipamerkan di kawasan strategik, selaras dengan hospital, disahkan dan bertarikh.'},
+  {i:'c. Objektif Unit',d:'Objektif perkhidmatan fisioterapi yang jelas, boleh diukur, disemak dan dikemaskini.'},
+  {i:'d. Sistem Fail Akreditasi / MS ISO',d:'Fail disusun mengikut kategori dan dikemaskini.'},
+  {i:'e. Fail Unit',d:'Fail berikut lengkap: peribadi, belanjawan, pekeliling, statistik, pelatih, latihan & CME.'},
+  {i:'f. Piagam Pelanggan',d:'Piagam pelanggan dipamerkan dengan jelas untuk tatapan umum.'},
+  {i:'g. Pengurusan Aduan',d:'Carta alir dan proses pengurusan aduan dipamerkan dan mudah dirujuk.'},
+  {i:'h. Statistik & SMRP',d:'Statistik perkhidmatan direkodkan, dipantau dan dihantar kepada pihak berkaitan.'},
+  {i:'i. Mesyuarat Jabatan / Unit',d:'Fail minit lengkap: surat panggilan, kehadiran, minit, maklum balas, akuan membaca.'},
+  {i:'j. Penyampaian Maklumat',d:'Minit mesyuarat dan maklumat penting dipamerkan atau disebarkan.'},
+  {s:'POLISI DAN PROSEDUR'},
+  {i:'a. Polisi Jabatan/Unit',d:'Polisi bertulis yang disahkan dan dikemaskini setiap 3 tahun.'},
+  {i:'b. Bukti Penyampaian',d:'Semua staf menandatangani akuan penerimaan/membaca polisi.'},
+  {i:'c. Protokol Rawatan',d:'Protokol rawatan fisioterapi lengkap dan boleh dirujuk.'},
+  {i:'d. Standard Operating Procedure (SOP)',d:'SOP disediakan untuk semua prosedur klinikal dan bukan klinikal.'},
+  {i:'e. Modul Orientasi dan Consent',d:'Modul orientasi untuk staf baharu dan consent form untuk pesakit.'},
+  {i:'f. Hak dan Privasi Pesakit',d:'Dipamerkan dengan jelas dan dihormati dalam semua interaksi rawatan.'},
+  {s:'FASILITI DAN KELENGKAPAN'},
+  {i:'a. Penggunaan KEWPA',d:'Borang KEWPA digunakan untuk pemantauan aset dengan betul.'},
+  {i:'b. Fail Pelupusan',d:'Fail lengkap dengan senarai item dilupus dan tarikh kelulusan.'},
+  {i:'c. Penjagaan Aset',d:'Penyelenggaraan berjadual (PPM) dijalankan dan direkodkan.'},
+  {i:'d. Pengurusan Stor dan Stok',d:'Rekod keluar masuk stok dikemaskini dan sistematik.'},
+  {i:'e. Sistem Panggilan Kecemasan',d:'Carta alir Code Blue dipamerkan, sistem berfungsi.'},
+  {i:'f. Tandas OKU',d:'Lengkap dengan grab bar dan loceng kecemasan yang berfungsi.'},
+  {s:'PENINGKATAN AKTIVITI KUALITI & KESELAMATAN'},
+  {i:'a. Pengumpulan Data NIA/KPI',d:'Senarai indikator, data dikumpul, dipantau, dihantar ke penyelaras negeri.'},
+  {i:'b. Semakan Audit Personel',d:'Audit prestasi staf dijalankan secara berkala dan direkodkan.'},
+  {i:'c. Inovasi / QAP / KIK / EKSA',d:'Aktiviti inovasi/kualiti dilaksanakan dan direkodkan.'},
+  {i:'d. Kajian Kepuasan Pelanggan',d:'Dijalankan dua kali setahun, hasil dianalisis dan tindakan penambahbaikan diambil.'},
+  {i:'e. Kajian Piagam Pelanggan',d:'Sekurang-kurangnya sekali setahun.'},
+  {i:'f. Latihan Keselamatan dan Kesihatan',d:'Semua staf hadiri latihan kebakaran, BLS, kawalan jangkitan.'},
+  {i:'g. Laporan Insiden & RCA',d:'Semua kejadian dilaporkan, disiasat, ada tindakan pembetulan.'},
+  {i:'h. Penilaian HIRARC',d:'Penilaian risiko untuk prosedur rawatan berisiko disediakan dan dikaji semula.'},
+  {s:'SUMBER MANUSIA'},
+  {i:'a. Surat Lantikan Ketua Unit',d:'Disimpan bersama deskripsi tugas rasmi.'},
+  {i:'b. MyPortfolio',d:'Dikemaskini, mengandungi peranan dan tanggungjawab staf.'},
+  {i:'c. Surat Lantikan AJK/Jawatankuasa',d:'Salinan surat pelantikan disimpan dan dikemaskini.'},
+  {i:'d. Sijil Pendaftaran MAHPC',d:'Semua fisioterapis berdaftar dengan MAHPC dan sijil dikemaskini.'},
+  {i:'e. Orientasi Anggota Baharu',d:'Program orientasi lengkap dengan senarai semak dan kehadiran.'},
+  {i:'f. Fail CPD',d:'Rekod kursus, latihan dan CME setiap staf direkodkan.'},
+  {i:'g. Credentialing / Privileging',d:'Dilaksanakan bagi Optional/Advance Procedure.'},
+  {i:'h. Program Mentor / Kompetensi',d:'Jadual penyeliaan, laporan prestasi dan program mentor/kompetensi direkodkan.'},
+  {i:'i. Perancangan Kursus Tahunan',d:'Pelan latihan tahunan disediakan dan dilaksanakan.'},
+  {i:'j. Jadual Tugas',d:'Jadual harian/bulanan dikemaskini, adil dan mengikut keperluan semasa.'},
+  {i:'k. Pengurusan Cuti',d:'Fail serta rekod permohonan dan kelulusan cuti lengkap dan dikemaskini.'},
+  {i:'l. Etika Pemakaian',d:'Kakitangan berpakaian mengikut pekeliling kerajaan.'},
+];
+const PAN2=[
+  {s:'BAHAGIAN A'},
+  {i:'1. Appropriate Assessment Form',d:'Use the correct assessment form based on patient category.'},
+  {i:'2. Presenting Condition',d:"Clearly describe the patient's primary complaint or referral reason."},
+  {i:'3. Pain Documentation',d:'State type, intensity (VAS/NRS/Wong Baker), location, nature and aggravating/relieving factors.'},
+  {i:'4. Body Chart',d:'Use the body chart to mark pain, numbness, stiffness, weakness etc.'},
+  {i:'5. Special Questions',d:'Include questions related to general health, red flags, medications, bladder/bowel issues, weight loss etc.'},
+  {i:'6. Current History',d:'Explain how the condition began – onset, mechanism of injury, acute vs chronic.'},
+  {i:'7. Past History',d:'Describe any previous episodes or other medical history relevant to current problem.'},
+  {i:'8. Observation',d:'Note posture, gait, facial expressions, swelling, scars, or other visual indicators.'},
+  {i:'9. Palpation',d:'Include findings such as tenderness, spasm, warmth, crepitus, or abnormal muscle tone.'},
+  {i:'10. Assessment Tools',d:'Use and record objective tools such as ROM, MMT, Oswestry, MAS etc.'},
+  {i:"11. Physiotherapist's Impression",d:'Summarise findings, interpret the problem, prioritise issues.'},
+  {i:'12. Goals',d:'State both short- and long-term treatment goals that are SMART and patient focused.'},
+  {i:'13. Treatment Plan',d:'Document planned intervention strategies based on findings and goals.'},
+  {i:'14. Informed Consent',d:'Record that patient has given verbal or written consent.'},
+  {i:'15. Intervention Implementation',d:'Confirm that treatment provided is aligned with treatment plan.'},
+  {i:'16. Advice / Information Given',d:'Include home exercise instructions, posture education, precautions etc.'},
+  {i:'17. Subjective Markers',d:'Note pain changes, functional limitations, and subjective reports in each session.'},
+  {i:'18. Objective Markers',d:'Reassess ROM, strength, function etc., during follow-ups.'},
+  {i:'19. Problem Analysis',d:'Discuss clinical reasoning based on findings. Use ICF model if applicable.'},
+  {i:'20. Treatment Plan Revision',d:'Clearly document any changes in treatment plan with rationale.'},
+  {i:'21. Discharge Plan',d:'Include discharge criteria, plan for follow-up or referrals, and education.'},
+  {i:'22. Documentation of Every Visit',d:'Every visit must be documented using SOAP format.'},
+  {i:'23. Documentation Quality',d:'Ensure entries are: Concise, Legible, In logical sequence.'},
+  {i:'24. Signature & Stamp',d:'Every entry must be signed, stamped (MAHPC Number), and dated.'},
+  {s:'BAHAGIAN B'},
+  {i:'25.1 Standard Operating Procedures',d:'Unit must have all 8 core SOPs. Staff should be familiar with content and application.'},
+  {i:'25.2 Physiotherapy Care Protocols',d:'Care protocols should reflect evidence-based practices endorsed by the Physiotherapy Technical Committee.'},
+  {i:'25.3 Best Statements',d:'Staff should be able to show awareness and apply relevant Best Statements during patient care.'},
+];
+
+// ===== STATE =====
+let R1={},R2={},R3={};
+let H1=[],H2=[],H3=[];
+let ACH=[];
+try{H1=JSON.parse(localStorage.getItem('aud_h1')||'[]');}catch(e){}
+try{H2=JSON.parse(localStorage.getItem('aud_h2')||'[]');}catch(e){}
+try{H3=JSON.parse(localStorage.getItem('aud_h3')||'[]');}catch(e){}
+
+// ===== BUILD FORMS =====
+function bldB1(){
+  const c=document.getElementById('b1-body');c.innerHTML='';
+  S1.forEach(sec=>{
+    const d=document.createElement('div');d.className='card';
+    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s1-${sec.id}">—/—</span></div>`;
+    sec.items.forEach(it=>{
+      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
+        <div class="rg">${[1,2,3,4,'N/A'].map((v,i)=>{const cl=['r1','r2','r3','r4','rna'][i];const rv=i<4?v:'NA';return `<button class="rb ${cl}" onclick="rt1('${it.id}',${JSON.stringify(rv)},this)">${v}</button>`;}).join('')}</div>
+        <textarea class="ita" placeholder="Komen auditor..." oninput="R1['${it.id}_k']=this.value" rows="1"></textarea>
+        <textarea class="ita" placeholder="Penambahbaikan stakeholder..." oninput="R1['${it.id}_p']=this.value" rows="1"></textarea>
+      </div></div>`;
+    });
+    d.innerHTML=h;c.appendChild(d);
+  });
+}
+function bldB2(){
+  const c=document.getElementById('b2-body');c.innerHTML='';
+  S2.forEach(sec=>{
+    const d=document.createElement('div');d.className='card';
+    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s2-${sec.id}">—/—</span></div>`;
+    sec.items.forEach(it=>{
+      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
+        <div class="rg">${[0,1,2,'N/A'].map((v,i)=>{const cl=['d0','d1','d2','rna'][i];const rv=i<3?v:'NA';return `<button class="rb ${cl}" onclick="rt2('${it.id}',${JSON.stringify(rv)},this)">${v}</button>`;}).join('')}</div>
+        <textarea class="ita" placeholder="Remarks..." oninput="R2['${it.id}_r']=this.value" rows="1"></textarea>
+      </div></div>`;
+    });
+    d.innerHTML=h;c.appendChild(d);
+  });
+}
+function bldB3(){
+  const c=document.getElementById('b3-body');c.innerHTML='';
+  S3.forEach(sec=>{
+    const d=document.createElement('div');d.className='card';
+    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s3-${sec.id}">—/—</span></div>`;
+    sec.items.forEach(it=>{
+      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
+        <div class="rg">${[1,2,3].map((v,i)=>{const cl=['p1','p2','p3'][i];return `<button class="rb ${cl}" onclick="rt3('${it.id}',${v},this)">${v}</button>`;}).join('')}</div>
+        <textarea class="ita" placeholder="Catatan..." oninput="R3['${it.id}_c']=this.value" rows="1"></textarea>
+      </div></div>`;
+    });
+    d.innerHTML=h;c.appendChild(d);
+  });
+}
+function bldPan(){
+  ['p1','p2'].forEach((pid,idx)=>{
+    const src=idx===0?PAN1:PAN2;
+    let h='<div class="card">';
+    src.forEach(r=>{
+      if(r.s)h+=`<div class="sdiv">${r.s}</div>`;
+      else h+=`<div class="pd-r"><div class="pd-i">${r.i}</div><div class="pd-d">${r.d}</div></div>`;
+    });
+    document.getElementById('pan-'+pid).innerHTML=h+'</div>';
+  });
+  document.getElementById('pan-p1').innerHTML+=`<div class="card"><div class="ch"><span class="ct">Jadual Rating</span></div><div style="padding:13px 17px">
+  <table style="width:100%;border-collapse:collapse;font-size:12px">
+    <tr><td style="padding:6px 10px;background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o);font-family:var(--mo)">⭐ 0-39%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Poor — major improvements required</td></tr>
+    <tr><td style="padding:6px 10px;background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o);font-family:var(--mo)">⭐⭐ 40-59%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Fair — several areas need strengthening</td></tr>
+    <tr><td style="padding:6px 10px;background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o);font-family:var(--mo)">⭐⭐⭐ 60-79%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Good — meets most standards</td></tr>
+    <tr><td style="padding:6px 10px;background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o);font-family:var(--mo)">⭐⭐⭐⭐ 80-100%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Excellent — fully complies, high competency</td></tr>
+  </table></div></div>`;
+}
+
+// ===== RATING =====
+function rt1(id,val,btn){R1[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc1();}
+function rt2(id,val,btn){R2[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc2();}
+function rt3(id,val,btn){R3[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc3();}
+
+function usc1(){S1.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;}else if(r===undefined){m+=4;}});const el=document.getElementById('s1-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
+function usc2(){S2.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R2[it.id];if(r!==undefined&&r!=='NA'){t+=r;m+=2;}else if(r===undefined){m+=2;}});const el=document.getElementById('s2-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
+function usc3(){S3.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R3[it.id];if(r){t+=r;m+=3;}else{m+=3;}});const el=document.getElementById('s3-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
+
+// ===== CALC =====
+function cl1(){
+  let tot=0,mxt=0;const sD=[];const wk=[];const dist={1:0,2:0,3:0,4:0};
+  S1.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;dist[r]=(dist[r]||0)+1;if(r<=2)wk.push({l:it.l,r:r,s:sec.t.replace(/^\d+\s*[—-]\s*/,'')});}else if(r===undefined){m+=4;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^\d+\s*[—-]\s*/,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
+  const pct=mxt>0?Math.round(tot/mxt*100):0;
+  let rat='⭐ Lemah';if(pct>=80)rat='⭐⭐⭐⭐ Cemerlang';else if(pct>=60)rat='⭐⭐⭐ Baik';else if(pct>=40)rat='⭐⭐ Sederhana';
+  return{tot,mxt,pct,rat,sD,wk,dist};
+}
+function cl2(){
+  let tot=0,mxt=0;const wk=[];
+  S2.forEach(sec=>{sec.items.forEach(it=>{const r=R2[it.id];if(r!==undefined&&r!=='NA'){tot+=r;mxt+=2;if(r<=1)wk.push({l:it.l,r:r});}else if(r===undefined){mxt+=2;}});});
+  const pct=mxt>0?Math.round(tot/mxt*100):0;
+  let rat='⭐ Poor';if(pct>=80)rat='⭐⭐⭐⭐ Excellent';else if(pct>=60)rat='⭐⭐⭐ Good';else if(pct>=40)rat='⭐⭐ Fair';
+  return{tot,mxt,pct,rat,wk};
+}
+function cl3(){
+  let tot=0,mxt=0;const sD=[];const wk=[];
+  S3.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R3[it.id];if(r){t+=r;m+=3;if(r===1)wk.push({l:it.l,r:r,s:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,'')});}else{m+=3;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
+  const pct=mxt>0?Math.round(tot/mxt*100):0;
+  let rat='⭐ Lemah';if(pct>=80)rat='⭐⭐⭐⭐ Cemerlang';else if(pct>=60)rat='⭐⭐⭐ Baik';else if(pct>=40)rat='⭐⭐ Sederhana';
+  return{tot,mxt,pct,rat,sD,wk};
+}
+
+// ===== SAVE & RESET =====
+const BC=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
+function rc(pct){return pct>=80?'rc':pct>=60?'rb_':pct>=40?'rs':'rl';}
+
+function sv(n){
+  const td=new Date().toISOString().slice(0,10);
+  if(n===1){
+    const r=cl1();
+    const items={};S1.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t.replace(/^\d+\s*[—-]\s*/,''),r:R1[it.id],k:R1[it.id+'_k']||'',p:R1[it.id+'_p']||''};}));
+    H1.push({fas:document.getElementById('b1-f').value||'N/A',trk:document.getElementById('b1-d').value||td,aud:document.getElementById('b1-au').value||'—',aue:document.getElementById('b1-ae').value||'—',tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,sD:r.sD,wk:r.wk,dist:r.dist,items:items,la:document.getElementById('b1-la').value,ke:document.getElementById('b1-ke').value,ca:document.getElementById('b1-ca').value,cd:document.getElementById('b1-cd').value});
+    try{localStorage.setItem('aud_h1',JSON.stringify(H1));}catch(e){}
+    sp('dash');sdash('d1',null);
+  }
+  if(n===2){
+    const r=cl2();
+    const items={};S2.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t,r:R2[it.id],rem:R2[it.id+'_r']||''};}));
+    H2.push({fas:document.getElementById('b2-f').value||'N/A',trk:document.getElementById('b2-d').value||td,ev:document.getElementById('b2-ev').value||'—',jw:document.getElementById('b2-jw').value||'—',tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,wk:r.wk,items:items,ko:document.getElementById('b2-ko').value});
+    try{localStorage.setItem('aud_h2',JSON.stringify(H2));}catch(e){}
+    sp('dash');sdash('d2',null);
+  }
+  if(n===3){
+    const r=cl3();
+    const items={};S3.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,''),r:R3[it.id],c:R3[it.id+'_c']||''};}));
+    H3.push({pyd:document.getElementById('b3-pyd').value||'N/A',pen:document.getElementById('b3-pen').value||'N/A',fas:document.getElementById('b3-f').value||'N/A',trk:document.getElementById('b3-d').value||td,tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,sD:r.sD,wk:r.wk,items:items,ul:document.getElementById('b3-ul').value});
+    try{localStorage.setItem('aud_h3',JSON.stringify(H3));}catch(e){}
+    sp('dash');sdash('d3',null);
+  }
+}
+function rb(n){
+  if(n===1){R1={};document.querySelectorAll('#b1-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b1-body .ita').forEach(t=>t.value='');usc1();}
+  if(n===2){R2={};document.querySelectorAll('#b2-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b2-body .ita').forEach(t=>t.value='');usc2();}
+  if(n===3){R3={};document.querySelectorAll('#b3-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b3-body .ita').forEach(t=>t.value='');usc3();}
+}
+
+// ===== CHARTS =====
+function dch(){ACH.forEach(c=>{try{c.destroy();}catch(e){}});ACH=[];}
+
+// ===== DASHBOARD PER FACILITY =====
+function fdKey(s){return s.replace(/[^a-zA-Z0-9]/g,'_');}
+
+function toggleFD(id){
+  const el=document.getElementById(id);if(!el)return;
+  const show=el.style.display==='none';
+  el.style.display=show?'block':'none';
+  const arr=el.previousElementSibling&&el.previousElementSibling.querySelector('.arr');
+  if(arr)arr.textContent=show?'▲':'▼';
+}
+
+function fasBar(a,detId){
+  const bc=a.pct>=80?'#2a5c3f':a.pct>=60?'#2d5f8a':a.pct>=40?'#c87820':'#a02020';
+  return `<div style="cursor:pointer" onclick="toggleFD('${detId}')">
+    <div style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--sur);border:1px solid var(--bor);border-radius:6px;margin-bottom:4px">
+      <span style="flex:1;font-size:13px;font-weight:600">${a.fas||a.pyd}</span>
+      <div style="flex:2;height:7px;background:var(--sur2);border-radius:3px;overflow:hidden;border:1px solid var(--bor)"><div style="height:100%;border-radius:3px;width:${a.pct}%;background:${bc}"></div></div>
+      <span style="font-family:var(--mo);font-size:12px;font-weight:500;width:36px;text-align:right">${a.pct}%</span>
+      <span class="rtag ${rc(a.pct)}" style="white-space:nowrap">${a.rat}</span>
+      <span class="arr" style="font-size:10px;color:var(--tx3)">▼</span>
+    </div>
+  </div>`;
+}
+
+function fdInfo(rows){
+  return `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin-bottom:11px">${rows.map(r=>`<div><div class="fd-lbl">${r[0]}</div><div class="fd-val">${r[1]}</div></div>`).join('')}</div>`;
+}
+
+function fdSections(sD){
+  if(!sD||!sD.length)return '';
+  return '<div style="margin-bottom:10px">'+sD.map((s,i)=>`<div class="pr"><span class="pn" style="font-size:11px">${s.t}</span><div class="pt"><div class="pf" style="width:${s.pct}%;background:${BC[i%BC.length]}"></div></div><span class="pp">${s.pct}%</span></div>`).join('')+'</div>';
+}
+
+function fdDist(dist){
+  if(!dist)return '';
+  return `<div class="dist-tags">
+    <span class="dtag" style="background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o)">Markah 1: ${dist[1]||0}</span>
+    <span class="dtag" style="background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o)">Markah 2: ${dist[2]||0}</span>
+    <span class="dtag" style="background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o)">Markah 3: ${dist[3]||0}</span>
+    <span class="dtag" style="background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o)">Markah 4: ${dist[4]||0}</span>
+  </div>`;
+}
+
+function fdWeak(wk,cls1,cls2,lbl1,lbl2){
+  if(!wk||!wk.length)return '';
+  let h=`<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px">Item Memerlukan Perhatian</div>`;
+  wk.forEach(w=>{h+=`<div class="${w.r===1||w.r===0?cls1:cls2}" style="margin-bottom:3px"><div class="wl">${w.l}<span class="badge ${w.r===1||w.r===0?'b1':'b2'}">${lbl1} ${w.r}</span></div><div class="wm">${w.s||''}</div></div>`;});
+  return h;
+}
+
+function fdItems(items,cols){
+  if(!items)return '';
+  const th=cols.map(c=>`<th class="item-tbl">${c}</th>`).join('');
+  let h=`<details><summary>Lihat semua item ▸</summary><table class="item-tbl" style="margin-top:7px"><thead><tr>${th}</tr></thead><tbody>`;
+  Object.values(items).forEach(it=>{
+    const rv=it.r;const nr=rv!==undefined&&rv!==null&&rv!=='NA';
+    const isLow=nr&&(rv===0||rv===1);const isMid=nr&&rv===2;const isHi=nr&&(rv===3||rv===4);
+    const bg=isLow?'var(--r1b)':isMid?'var(--r2b)':isHi?'var(--r3b)':'';
+    const tc=isLow?'var(--r1t)':isMid?'var(--r2t)':isHi?'var(--r3t)':'var(--tx3)';
+    const extra=cols.length===4?`<td class="item-tbl">${it.k||'—'}</td><td class="item-tbl">${it.p||'—'}</td>`:cols.length===3&&cols[2]==='Remarks'?`<td class="item-tbl">${it.rem||'—'}</td>`:`<td class="item-tbl">${it.c||'—'}</td>`;
+    h+=`<tr><td class="item-tbl">${it.l}</td><td class="item-tbl" style="text-align:center;background:${bg};color:${tc};font-family:var(--mo);font-weight:600">${rv!==undefined&&rv!==null?rv:'—'}</td>${extra}</tr>`;
+  });
+  h+=`</tbody></table></details>`;return h;
+}
+
+function fdHistory(fas,hist,n){
+  const prev=hist.filter(x=>x.fas===fas&&x!==hist[hist.length-1]).sort((a,b)=>b.trk.localeCompare(a.trk));
+  if(!prev.length)return '';
+  let h=`<div style="margin-top:10px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px">Sejarah Audit Terdahulu</div><table class="htbl"><thead><tr><th>Tarikh</th><th>${n===2?'Evaluator':'Auditor'}</th><th>Markah</th><th>Rating</th></tr></thead><tbody>`;
+  prev.forEach(x=>{h+=`<tr><td>${x.trk}</td><td>${n===2?x.ev:x.aud}</td><td style="font-family:var(--mo)">${x.pct}%</td><td><span class="rtag ${rc(x.pct)}">${x.pct}%</span></td></tr>`;});
+  h+=`</tbody></table></div>`;return h;
+}
+
+function rdD1(){
+  dch();const el=document.getElementById('dash-d1');
+  if(!H1.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit perkhidmatan lagi. Isi borang dan simpan.</div></div>';return;}
+  const latest={};H1.forEach(a=>{if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
+  const arr=Object.values(latest).sort((a,b)=>b.pct-a.pct);
+  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Semua Fasiliti — Borang Perkhidmatan</span><span class="cs">${arr.length} fasiliti</span></div><div style="padding:13px 17px">`;
+  arr.forEach(a=>{
+    const did=`fd1_${fdKey(a.fas)}`;
+    let det=`<div id="${did}" class="fd" style="display:none">`;
+    det+=fdInfo([['Tarikh Audit',a.trk],['Auditor',a.aud],['Auditee',a.aue||'—'],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
+    det+=fdSections(a.sD)+fdDist(a.dist)+fdWeak(a.wk,'wi1','wi2','Markah','Markah');
+    det+=fdItems(a.items,['Item','Markah','Komen Auditor','Penambahbaikan']);
+    if(a.la||a.ke||a.ca||a.cd){det+=`<div style="margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px">`;if(a.la)det+=`<div><div class="fd-lbl">Lain-lain Penemuan</div><div style="font-size:11px">${a.la}</div></div>`;if(a.ke)det+=`<div><div class="fd-lbl">Kesimpulan</div><div style="font-size:11px">${a.ke}</div></div>`;if(a.ca)det+=`<div><div class="fd-lbl">Catatan</div><div style="font-size:11px">${a.ca}</div></div>`;if(a.cd)det+=`<div><div class="fd-lbl">Cadangan</div><div style="font-size:11px">${a.cd}</div></div>`;det+=`</div>`;}
+    det+=fdHistory(a.fas,H1,1);
+    det+=`</div>`;
+    h+=fasBar(a,did)+det;
+  });
+  h+=`</div></div>`;
+  if(arr.length>1){
+    h+=`<div class="card"><div class="ch"><span class="ct">Carta Perbandingan Fasiliti</span></div><div style="position:relative;padding:13px;height:${Math.max(200,arr.length*50+80)}px"><canvas id="cmp1"></canvas></div></div>`;
+  }
+  const multi=H1.filter(a=>H1.filter(x=>x.fas===a.fas).length>1);
+  if(multi.length){
+    h+=`<div class="card"><div class="ch"><span class="ct">Trend Markah Mengikut Fasiliti</span></div><div style="position:relative;padding:13px;height:240px"><canvas id="trnd1"></canvas></div></div>`;
+  }
+  el.innerHTML=h;
+  if(arr.length>1){
+    const ch=new Chart(document.getElementById('cmp1'),{type:'bar',
+      data:{labels:arr.map(a=>a.fas.length>18?a.fas.substring(0,16)+'…':a.fas),
+        datasets:[{data:arr.map(a=>a.pct),backgroundColor:arr.map(a=>a.pct>=80?'#80c090':a.pct>=60?'#80a8d0':a.pct>=40?'#f0c060':'#e8a0a0'),borderWidth:1}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+    ACH.push(ch);
+  }
+  if(multi.length){
+    const fasL=[...new Set(multi.map(a=>a.fas))];
+    const colors=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
+    const ds=fasL.map((f,i)=>{const pts=H1.filter(a=>a.fas===f).sort((a,b)=>a.trk.localeCompare(b.trk));return{label:f,data:pts.map(p=>({x:p.trk,y:p.pct})),borderColor:colors[i%5],backgroundColor:'transparent',tension:0.3,pointRadius:4};});
+    const tc=new Chart(document.getElementById('trnd1'),{type:'line',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},scales:{x:{type:'category'},y:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+    ACH.push(tc);
+  }
+}
+
+function rdD2(){
+  dch();const el=document.getElementById('dash-d2');
+  if(!H2.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit dokumentasi lagi.</div></div>';return;}
+  const latest={};H2.forEach(a=>{if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
+  const arr=Object.values(latest).sort((a,b)=>b.pct-a.pct);
+  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Semua Fasiliti — Audit Dokumentasi</span><span class="cs">${arr.length} fasiliti</span></div><div style="padding:13px 17px">`;
+  arr.forEach(a=>{
+    const did=`fd2_${fdKey(a.fas)}`;
+    let det=`<div id="${did}" class="fd" style="display:none">`;
+    det+=fdInfo([['Tarikh',a.trk],['Evaluator',a.ev||'—'],['Jawatan',a.jw||'—'],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
+    det+=fdWeak(a.wk,'wi1','wi2','Score','Score');
+    det+=fdItems(a.items,['Item','Score','Remarks']);
+    det+=fdHistory(a.fas,H2,2);
+    det+=`</div>`;
+    h+=fasBar(a,did)+det;
+  });
+  h+=`</div></div>`;
+  el.innerHTML=h;
+}
+
+function rdD3(){
+  dch();const el=document.getElementById('dash-d3');
+  if(!H3.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit personel lagi.</div></div>';return;}
+  const byFas={};H3.forEach(a=>{if(!byFas[a.fas])byFas[a.fas]=[];byFas[a.fas].push(a);});
+  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Audit Personel Mengikut Unit / Fasiliti</span><span class="cs">${H3.length} rekod</span></div><div style="padding:13px 17px">`;
+  Object.entries(byFas).forEach(([fas,audits])=>{
+    const avg=Math.round(audits.reduce((s,a)=>s+a.pct,0)/audits.length);
+    const bc=avg>=80?'#2a5c3f':avg>=60?'#2d5f8a':avg>=40?'#c87820':'#a02020';
+    h+=`<div class="fas-header"><span style="flex:1;font-size:13px;font-weight:600">${fas}</span><span style="font-size:11px;color:var(--tx2)">${audits.length} staf</span><span style="font-family:var(--mo);font-size:12px;margin-left:8px">${avg}% avg</span></div>`;
+    audits.sort((a,b)=>b.pct-a.pct).forEach(a=>{
+      const did=`fd3_${fdKey(fas+a.pyd+a.trk)}`;
+      let det=`<div id="${did}" class="fd" style="display:none">`;
+      det+=fdInfo([['Penyelia',a.pen],['Tarikh',a.trk],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
+      det+=fdSections(a.sD)+fdWeak(a.wk,'wi1','wi2','Markah','Markah');
+      det+=fdItems(a.items,['Item','Markah','Catatan']);
+      if(a.ul)det+=`<div style="margin-top:8px"><div class="fd-lbl">Ulasan Penyelia</div><div style="font-size:11px;font-style:italic">"${a.ul}"</div></div>`;
+      det+=`</div>`;
+      h+=fasBar(a,did)+det;
+    });
+    h+=`<div style="height:8px"></div>`;
+  });
+  h+=`</div></div>`;
+  el.innerHTML=h;
+}
+
+// ===== HISTORY =====
+function rHist(n){
+  const hist=n===1?H1:n===2?H2:H3;
+  const el=document.getElementById('hist-h'+n);
+  if(!hist.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit lagi.</div></div>';return;}
+  const cols=n===3?['Nama PYD','Unit/Fasiliti','Penyelia','Tarikh','Markah','Rating']:['Fasiliti','Tarikh',n===2?'Evaluator':'Auditor','Markah','Rating'];
+  let h=`<div class="card"><table class="htbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+  [...hist].reverse().forEach(a=>{
+    const r=rc(a.pct);
+    const row=n===3?`<td>${a.pyd}</td><td>${a.fas||'—'}</td><td>${a.pen}</td><td>${a.trk}</td>`:n===2?`<td>${a.fas}</td><td>${a.trk}</td><td>${a.ev||'—'}</td>`:`<td>${a.fas}</td><td>${a.trk}</td><td>${a.aud||'—'}</td>`;
+    h+=`<tr>${row}<td style="font-family:var(--mo)">${a.pct}% <span style="font-size:10px;color:var(--tx3)">(${a.tot}/${a.max})</span></td><td><span class="rtag ${r}">${a.pct}%</span></td></tr>`;
+  });
+  h+=`</tbody></table></div>`;el.innerHTML=h;
+}
+
+// ===== NAV =====
+function sp(p){
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));
+  document.getElementById('pg-'+p).classList.add('on');
+  const pgs=['b1','b2','b3','dash','pan','hist'];
+  document.querySelectorAll('.nb')[pgs.indexOf(p)].classList.add('on');
+  if(p==='dash'){rdD1();rdD2();rdD3();}
+  if(p==='hist'){rHist(1);rHist(2);rHist(3);}
+}
+function sdash(d,btn){
+  dch();
+  ['d1','d2','d3'].forEach(x=>document.getElementById('dash-'+x).style.display=x===d?'block':'none');
+  if(d==='d1')rdD1();if(d==='d2')rdD2();if(d==='d3')rdD3();
+  document.querySelectorAll('#pg-dash .stb').forEach((b,i)=>b.classList.toggle('on',['d1','d2','d3'][i]===d));
+}
+function span2(p,btn){
+  ['p1','p2'].forEach(x=>document.getElementById('pan-'+x).style.display=x===p?'block':'none');
+  document.querySelectorAll('#pg-pan .stb').forEach((b,i)=>b.classList.toggle('on',['p1','p2'][i]===p));
+}
+function shist(h,btn){
+  ['h1','h2','h3'].forEach(x=>document.getElementById('hist-'+x).style.display=x===h?'block':'none');
+  if(btn)document.querySelectorAll('#pg-hist .stb').forEach((b,i)=>b.classList.toggle('on',['h1','h2','h3'][i]===h));
+}
+
+// ===== INIT =====
+const td=new Date().toISOString().slice(0,10);
+['b1-d','b2-d','b3-d'].forEach(id=>document.getElementById(id).value=td);
+bldB1();bldB2();bldB3();bldPan();
+
+</script>
+</body>
+</html>
