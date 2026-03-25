@@ -224,574 +224,362 @@ details summary{cursor:pointer;font-size:11px;font-weight:600;color:var(--acc);p
 </div>
 <script>
 
-// ===== SECTION DATA =====
-const S1=[
-  {id:'s1',t:'1 — Pengurusan Organisasi',items:[
-    {id:'1a',l:'a) Carta organisasi hospital / jabatan dikemaskini (diperaku & bertarikh)'},
-    {id:'1b',l:'b) Visi / misi – dipamerkan & kemaskini (diperaku & bertarikh)'},
-    {id:'1c',l:'c) Objektif unit (diperaku & bertarikh)'},
-    {id:'1d',l:'d) Sistem fail akreditasi / MS ISO 9001 kemaskini & terkini'},
-    {id:'1e1',l:'e-i) Fail peribadi'},
-    {id:'1e2',l:'e-ii) Fail belanjawan (aset perubatan / harta modal / aset bernilai rendah)'},
-    {id:'1e3',l:'e-iii) Fail pekeliling'},
-    {id:'1e4',l:'e-iv) Fail statistik'},
-    {id:'1e5',l:'e-v) Fail pelatih fisioterapi (rujuk Student Information Package)'},
-    {id:'1e6',l:'e-vi) Fail latihan & continuous medical education'},
-    {id:'1f0',l:'Piagam pelanggan dipamerkan'},
-    {id:'1f',l:'f) Pengurusan aduan – carta alir & proses dipamerkan'},
-    {id:'1g',l:'g) Pengurusan statistik dan SMRP'},
-    {id:'1h',l:'h) Mesyuarat jabatan/unit — surat panggilan, minit, maklumbalas, kehadiran, akuan membaca minit'},
-    {id:'1i',l:'i) Dokumentasi pesakit menggunakan borang penilaian fisioterapi yang betul, lengkap dan format POMR'},
-    {id:'1j',l:'j) Penyampaian maklumat — minit mesyuarat jabatan/unit & papan informasi'},
-  ]},
-  {id:'s2',t:'2 — Polisi dan Prosedur',items:[
-    {id:'2a',l:'a) Polisi jabatan/unit dikemaskini dan terkini (diperaku & bertarikh)'},
-    {id:'2b',l:'b) Bukti penyampaian maklumat ada & mudah dirujuk (akuan membaca)'},
-    {id:'2c',l:'c) Fisioterapi care protocol ada & mudah dirujuk'},
-    {id:'2d',l:'d) Standard Operating Prosedur ada & mudah dirujuk'},
-    {id:'2e',l:'e) Orientasi dan consent pesakit / modul orientasi'},
-    {id:'2f',l:'f) Hak dan privasi pesakit (dipamerkan)'},
-  ]},
-  {id:'s3',t:'3 — Fasiliti dan Kelengkapan',items:[
-    {id:'3a',l:'a) Penggunaan KEWPA'},
-    {id:'3b',l:'b) Fail pelupusan'},
-    {id:'3c',l:'c) Penjagaan aset (PPM dijalankan mengikut jadual)'},
-    {id:'3d',l:'d) Pengurusan stor dan stok teratur dan direkodkan'},
-    {id:'3e',l:'e) Sistem panggilan kecemasan – code blue / carta alir'},
-    {id:'3f',l:'f) Tandas sesuai untuk OKU — grab bar & emergency call bell berfungsi'},
-  ]},
-  {id:'s4',t:'4 — Peningkatan Aktiviti Kualiti & Keselamatan',items:[
-    {id:'4a',l:'a) Pengumpulan data NIA/KPI — data, pemantauan, laporan BSKB/BPKK, SIQ/RCA'},
-    {id:'4b',l:'b) Semakan laporan audit personel (rujuk borang audit personel)'},
-    {id:'4c',l:'c) Inovasi / KIK / QAP / Clinical Audit / EKSA / Pain Free'},
-    {id:'4d',l:'d) Kajian kepuasan pelanggan (2 kali setahun)'},
-    {id:'4e',l:'e) Kajian piagam pelanggan (1 kali setahun)'},
-    {id:'4f',l:'f) Latihan keselamatan & kesihatan — semua kakitangan hadir'},
-    {id:'4fi',l:'f-i) Pelan Tindakan Kecemasan Kebakaran & Bencana (polisi, floor plan, fire extinguisher, tarikh luput)'},
-    {id:'4fii',l:'f-ii) BLS'},
-    {id:'4fiii',l:'f-iii) Infection Control'},
-    {id:'4i',l:'i) Incident Reporting / RCA'},
-    {id:'4j',l:'j) Penilaian HIRARC bagi rawatan/prosedur berisiko (jika berkenaan)'},
-  ]},
-  {id:'s5',t:'5 — Sumber Manusia',items:[
-    {id:'5a',l:'a) Surat lantikan ketua unit/jabatan dan deskripsi tugas'},
-    {id:'5b',l:'b) MyPortfolio dikemaskini dan terkini'},
-    {id:'5c',l:'c) Surat lantikan (AJK, jawatankuasa dan lain-lain)'},
-    {id:'5d',l:'d) Mempunyai sijil pendaftaran dan amalan MAHPC terkini'},
-    {id:'5e',l:'e) Orientasi anggota baru'},
-    {id:'5f',l:'f) Fail CPD'},
-    {id:'5g',l:'g) Credentialing / Privileging'},
-    {id:'5h',l:'h) Program mentor/kompetensi — jadual penyeliaan & laporan (jika berkenaan)'},
-    {id:'5i',l:'i) Perancangan kursus tahunan'},
-    {id:'5j',l:'j) Jadual tugas'},
-    {id:'5k',l:'k) Pengurusan cuti anggota'},
-    {id:'5l',l:'l) Etika pemakaian kakitangan kerajaan'},
-  ]}
-];
-const S2=[
-  {id:'pa',t:'Part A — Clinical Documentation',items:[
-    {id:'d1',l:'1. Appropriate Assessment Form is used'},
-    {id:'d2',l:'2. Presenting condition / problem is well documented'},
-    {id:'d3',l:'3. Pain is well documented (characteristic, scale: VAS/NRS/Wong Baker/FLACC)'},
-    {id:'d4',l:'4. Relevant symptoms are marked on the body chart'},
-    {id:'d5',l:'5. Special questions are addressed (general health, past history, medication etc.)'},
-    {id:'d6',l:'6. Current history is well documented (onset, mechanism of injury)'},
-    {id:'d7',l:'7. Past history is well documented (if relevant)'},
-    {id:'d8',l:'8. Observation is relevant and well documented (posture, gait, local findings)'},
-    {id:'d9',l:'9. Palpation is relevant and well documented (warmth, swelling, crepitus, spasm)'},
-    {id:'d10',l:'10. Specific assessment tools & outcome measures are well documented (MMT, ROM, Oswestry, MAS etc.)'},
-    {id:'d11',l:"11. Physiotherapist's Impression is adequately recorded"},
-    {id:'d12a',l:'12.1 Goals — Short term (specific aspects by priority)'},
-    {id:'d12b',l:'12.2 Goals — Long term (realistic approach to prognosis)'},
-    {id:'d13',l:'13. Treatment plan is well recorded'},
-    {id:'d14',l:'14. Evidence of informed consent obtained from patient'},
-    {id:'d15',l:'15. Interventions implemented according to the treatment plan'},
-    {id:'d16',l:'16. Evidence of all dispensed advice / patient education'},
-    {id:'d17',l:'17. Subjective markers reviewed at each session'},
-    {id:'d18',l:'18. Objective markers reviewed at each session'},
-    {id:'d19',l:'19. Analysis of problem is recorded (ICIDH model)'},
-    {id:'d20',l:'20. Changes in treatment plan are well documented'},
-    {id:'d21',l:'21. Discharge plan is adequately recorded'},
-    {id:'d22',l:'22. Documentation of every visit (SOAP format)'},
-    {id:'d23a',l:'23.1 Documented records are Concise'},
-    {id:'d23b',l:'23.2 Legible — clear enough to be read'},
-    {id:'d23c',l:'23.3 Logical sequence — chronologically recorded'},
-    {id:'d24',l:'24. Assessment forms Signed & Stamped after each entry (MAHPC number & date)'},
-  ]},
-  {id:'pb',t:'Part B — SOP & Protocols',items:[
-    {id:'d25a',l:'25.1 Standard Operating Procedures — all 8 SOPs (Neuro, MS, Geriatric, Respiratory, Sports, Pediatric, Urinary, Operational)'},
-    {id:'d25b',l:'25.2 Physiotherapy Care Protocols — endorsed by Physiotherapy Technical Committee'},
-    {id:'d25c',l:'25.3 Best Statements — concise practical clinical guidelines, staff aware and apply'},
-  ]}
-];
-const S3=[
-  {id:'p1',t:'Bahagian 1 — Pengurusan Klinikal',items:[
-    {id:'p1a',l:'a) Pengetahuan berkaitan diagnosis / sejarah pesakit'},
-    {id:'p1b',l:'b) Borang penilaian fisioterapi digunakan dan tepat'},
-    {id:'p1c',l:'c) Penilaian subjektif'},
-    {id:'p1d',l:'d) Penilaian objektif'},
-    {id:'p1e',l:'e) Kemahiran penggunaan alat pengukur'},
-    {id:'p1f',l:'f) Analisis dan mengenalpasti masalah'},
-    {id:'p1g',l:'g) Rancang rawatan'},
-    {id:'p1h',l:'h) Pemilihan rawatan'},
-    {id:'p1i',l:'i) Kemahiran aplikasi alat rawatan'},
-    {id:'p1j',l:'j) Kemahiran aplikasi teknik rawatan'},
-    {id:'p1k',l:'k) Pendidikan pesakit'},
-    {id:'p1l',l:'l) Privasi pesakit'},
-    {id:'p1m',l:'m) Aspek keselamatan'},
-    {id:'p1n',l:'n) Kemahiran komunikasi'},
-    {id:'p1o',l:'o) Mencapai ketetapan bilangan pesakit yang disasarkan'},
-    {id:'p1p',l:'p) Menjalankan tugas mengikut jadual yang diarahkan'},
-  ]},
-  {id:'p2',t:'Bahagian 2 — Pengurusan Aktiviti Kualiti',items:[
-    {id:'p2a',l:'a) Pengisian Statistik / SMRP / Reten'},
-    {id:'p2b',l:'b) Pengisian KPI dan NIA'},
-    {id:'p2c',l:'c) Penglibatan aktiviti kualiti fasiliti (Akreditasi, ISO, KIK, QAP, Kajian, Lean)'},
-  ]},
-  {id:'p3',t:'Bahagian 3 — Kualiti Peribadi',items:[
-    {id:'p3a',l:'a) Mematuhi peraturan / arahan'},
-    {id:'p3b',l:'b) Komitmen dan kesungguhan menjalankan tugas'},
-    {id:'p3c',l:'c) Sikap diri / tingkah laku'},
-    {id:'p3d',l:'d) Pakaian kekemasan / mengikut etika kerja'},
-    {id:'p3e',l:'e) Kehadiran / menepati masa'},
-    {id:'p3f',l:'f) Pengurusan cuti'},
-  ]},
-  {id:'p4',t:'Bahagian 4 — Kepimpinan',items:[
-    {id:'p4a',l:'a) Membuat keputusan'},
-    {id:'p4b',l:'b) Penyelesaian masalah'},
-    {id:'p4c',l:'c) Proaktif'},
-    {id:'p4d',l:'d) Kebolehan membuat keputusan'},
-  ]},
-  {id:'p5',t:'Bahagian 5 — Jalinan Hubungan & Kerjasama',items:[
-    {id:'p5a',l:'a) Kakitangan dalam unit / jabatan'},
-    {id:'p5b',l:'b) Kakitangan luar unit / jabatan'},
-    {id:'p5c',l:'c) Pesakit dan waris'},
-  ]}
-];
-const PAN1=[
-  {s:'PENGURUSAN ORGANISASI'},
-  {i:'a. Carta Organisasi',d:'Carta organisasi yang terkini, menunjukkan hubungan pelaporan, disahkan dan bertarikh.'},
-  {i:'b. Visi / Misi',d:'Dipamerkan di kawasan strategik, selaras dengan hospital, disahkan dan bertarikh.'},
-  {i:'c. Objektif Unit',d:'Objektif perkhidmatan fisioterapi yang jelas, boleh diukur, disemak dan dikemaskini.'},
-  {i:'d. Sistem Fail Akreditasi / MS ISO',d:'Fail disusun mengikut kategori dan dikemaskini.'},
-  {i:'e. Fail Unit',d:'Fail berikut lengkap: peribadi, belanjawan, pekeliling, statistik, pelatih, latihan & CME.'},
-  {i:'f. Piagam Pelanggan',d:'Piagam pelanggan dipamerkan dengan jelas untuk tatapan umum.'},
-  {i:'g. Pengurusan Aduan',d:'Carta alir dan proses pengurusan aduan dipamerkan dan mudah dirujuk.'},
-  {i:'h. Statistik & SMRP',d:'Statistik perkhidmatan direkodkan, dipantau dan dihantar kepada pihak berkaitan.'},
-  {i:'i. Mesyuarat Jabatan / Unit',d:'Fail minit lengkap: surat panggilan, kehadiran, minit, maklum balas, akuan membaca.'},
-  {i:'j. Penyampaian Maklumat',d:'Minit mesyuarat dan maklumat penting dipamerkan atau disebarkan.'},
-  {s:'POLISI DAN PROSEDUR'},
-  {i:'a. Polisi Jabatan/Unit',d:'Polisi bertulis yang disahkan dan dikemaskini setiap 3 tahun.'},
-  {i:'b. Bukti Penyampaian',d:'Semua staf menandatangani akuan penerimaan/membaca polisi.'},
-  {i:'c. Protokol Rawatan',d:'Protokol rawatan fisioterapi lengkap dan boleh dirujuk.'},
-  {i:'d. Standard Operating Procedure (SOP)',d:'SOP disediakan untuk semua prosedur klinikal dan bukan klinikal.'},
-  {i:'e. Modul Orientasi dan Consent',d:'Modul orientasi untuk staf baharu dan consent form untuk pesakit.'},
-  {i:'f. Hak dan Privasi Pesakit',d:'Dipamerkan dengan jelas dan dihormati dalam semua interaksi rawatan.'},
-  {s:'FASILITI DAN KELENGKAPAN'},
-  {i:'a. Penggunaan KEWPA',d:'Borang KEWPA digunakan untuk pemantauan aset dengan betul.'},
-  {i:'b. Fail Pelupusan',d:'Fail lengkap dengan senarai item dilupus dan tarikh kelulusan.'},
-  {i:'c. Penjagaan Aset',d:'Penyelenggaraan berjadual (PPM) dijalankan dan direkodkan.'},
-  {i:'d. Pengurusan Stor dan Stok',d:'Rekod keluar masuk stok dikemaskini dan sistematik.'},
-  {i:'e. Sistem Panggilan Kecemasan',d:'Carta alir Code Blue dipamerkan, sistem berfungsi.'},
-  {i:'f. Tandas OKU',d:'Lengkap dengan grab bar dan loceng kecemasan yang berfungsi.'},
-  {s:'PENINGKATAN AKTIVITI KUALITI & KESELAMATAN'},
-  {i:'a. Pengumpulan Data NIA/KPI',d:'Senarai indikator, data dikumpul, dipantau, dihantar ke penyelaras negeri.'},
-  {i:'b. Semakan Audit Personel',d:'Audit prestasi staf dijalankan secara berkala dan direkodkan.'},
-  {i:'c. Inovasi / QAP / KIK / EKSA',d:'Aktiviti inovasi/kualiti dilaksanakan dan direkodkan.'},
-  {i:'d. Kajian Kepuasan Pelanggan',d:'Dijalankan dua kali setahun, hasil dianalisis dan tindakan penambahbaikan diambil.'},
-  {i:'e. Kajian Piagam Pelanggan',d:'Sekurang-kurangnya sekali setahun.'},
-  {i:'f. Latihan Keselamatan dan Kesihatan',d:'Semua staf hadiri latihan kebakaran, BLS, kawalan jangkitan.'},
-  {i:'g. Laporan Insiden & RCA',d:'Semua kejadian dilaporkan, disiasat, ada tindakan pembetulan.'},
-  {i:'h. Penilaian HIRARC',d:'Penilaian risiko untuk prosedur rawatan berisiko disediakan dan dikaji semula.'},
-  {s:'SUMBER MANUSIA'},
-  {i:'a. Surat Lantikan Ketua Unit',d:'Disimpan bersama deskripsi tugas rasmi.'},
-  {i:'b. MyPortfolio',d:'Dikemaskini, mengandungi peranan dan tanggungjawab staf.'},
-  {i:'c. Surat Lantikan AJK/Jawatankuasa',d:'Salinan surat pelantikan disimpan dan dikemaskini.'},
-  {i:'d. Sijil Pendaftaran MAHPC',d:'Semua fisioterapis berdaftar dengan MAHPC dan sijil dikemaskini.'},
-  {i:'e. Orientasi Anggota Baharu',d:'Program orientasi lengkap dengan senarai semak dan kehadiran.'},
-  {i:'f. Fail CPD',d:'Rekod kursus, latihan dan CME setiap staf direkodkan.'},
-  {i:'g. Credentialing / Privileging',d:'Dilaksanakan bagi Optional/Advance Procedure.'},
-  {i:'h. Program Mentor / Kompetensi',d:'Jadual penyeliaan, laporan prestasi dan program mentor/kompetensi direkodkan.'},
-  {i:'i. Perancangan Kursus Tahunan',d:'Pelan latihan tahunan disediakan dan dilaksanakan.'},
-  {i:'j. Jadual Tugas',d:'Jadual harian/bulanan dikemaskini, adil dan mengikut keperluan semasa.'},
-  {i:'k. Pengurusan Cuti',d:'Fail serta rekod permohonan dan kelulusan cuti lengkap dan dikemaskini.'},
-  {i:'l. Etika Pemakaian',d:'Kakitangan berpakaian mengikut pekeliling kerajaan.'},
-];
-const PAN2=[
-  {s:'BAHAGIAN A'},
-  {i:'1. Appropriate Assessment Form',d:'Use the correct assessment form based on patient category.'},
-  {i:'2. Presenting Condition',d:"Clearly describe the patient's primary complaint or referral reason."},
-  {i:'3. Pain Documentation',d:'State type, intensity (VAS/NRS/Wong Baker), location, nature and aggravating/relieving factors.'},
-  {i:'4. Body Chart',d:'Use the body chart to mark pain, numbness, stiffness, weakness etc.'},
-  {i:'5. Special Questions',d:'Include questions related to general health, red flags, medications, bladder/bowel issues, weight loss etc.'},
-  {i:'6. Current History',d:'Explain how the condition began – onset, mechanism of injury, acute vs chronic.'},
-  {i:'7. Past History',d:'Describe any previous episodes or other medical history relevant to current problem.'},
-  {i:'8. Observation',d:'Note posture, gait, facial expressions, swelling, scars, or other visual indicators.'},
-  {i:'9. Palpation',d:'Include findings such as tenderness, spasm, warmth, crepitus, or abnormal muscle tone.'},
-  {i:'10. Assessment Tools',d:'Use and record objective tools such as ROM, MMT, Oswestry, MAS etc.'},
-  {i:"11. Physiotherapist's Impression",d:'Summarise findings, interpret the problem, prioritise issues.'},
-  {i:'12. Goals',d:'State both short- and long-term treatment goals that are SMART and patient focused.'},
-  {i:'13. Treatment Plan',d:'Document planned intervention strategies based on findings and goals.'},
-  {i:'14. Informed Consent',d:'Record that patient has given verbal or written consent.'},
-  {i:'15. Intervention Implementation',d:'Confirm that treatment provided is aligned with treatment plan.'},
-  {i:'16. Advice / Information Given',d:'Include home exercise instructions, posture education, precautions etc.'},
-  {i:'17. Subjective Markers',d:'Note pain changes, functional limitations, and subjective reports in each session.'},
-  {i:'18. Objective Markers',d:'Reassess ROM, strength, function etc., during follow-ups.'},
-  {i:'19. Problem Analysis',d:'Discuss clinical reasoning based on findings. Use ICF model if applicable.'},
-  {i:'20. Treatment Plan Revision',d:'Clearly document any changes in treatment plan with rationale.'},
-  {i:'21. Discharge Plan',d:'Include discharge criteria, plan for follow-up or referrals, and education.'},
-  {i:'22. Documentation of Every Visit',d:'Every visit must be documented using SOAP format.'},
-  {i:'23. Documentation Quality',d:'Ensure entries are: Concise, Legible, In logical sequence.'},
-  {i:'24. Signature & Stamp',d:'Every entry must be signed, stamped (MAHPC Number), and dated.'},
-  {s:'BAHAGIAN B'},
-  {i:'25.1 Standard Operating Procedures',d:'Unit must have all 8 core SOPs. Staff should be familiar with content and application.'},
-  {i:'25.2 Physiotherapy Care Protocols',d:'Care protocols should reflect evidence-based practices endorsed by the Physiotherapy Technical Committee.'},
-  {i:'25.3 Best Statements',d:'Staff should be able to show awareness and apply relevant Best Statements during patient care.'},
-];
-
-// ===== STATE =====
-let R1={},R2={},R3={};
-let H1=[],H2=[],H3=[];
-let ACH=[];
-try{H1=JSON.parse(localStorage.getItem('aud_h1')||'[]');}catch(e){}
-try{H2=JSON.parse(localStorage.getItem('aud_h2')||'[]');}catch(e){}
-try{H3=JSON.parse(localStorage.getItem('aud_h3')||'[]');}catch(e){}
-
-// ===== BUILD FORMS =====
+var S1=[{"id": "s1", "t": "1 — Pengurusan Organisasi", "items": [{"id": "1a", "l": "Carta organisasi hospital / jabatan dikemaskini (diperaku & bertarikh)"}, {"id": "1b", "l": "Visi / misi – dipamerkan & kemaskini (diperaku & bertarikh)"}, {"id": "1c", "l": "Objektif unit (diperaku & bertarikh)"}, {"id": "1d", "l": "Sistem fail akreditasi / MS ISO 9001 kemaskini & terkini"}, {"id": "1e1", "l": "e-i) Fail peribadi"}, {"id": "1e2", "l": "e-ii) Fail belanjawan (aset perubatan / harta modal / aset bernilai rendah)"}, {"id": "1e3", "l": "e-iii) Fail pekeliling"}, {"id": "1e4", "l": "e-iv) Fail statistik"}, {"id": "1e5", "l": "e-v) Fail pelatih fisioterapi (rujuk Student Information Package)"}, {"id": "1e6", "l": "e-vi) Fail latihan & continuous medical education"}, {"id": "1f0", "l": "Piagam pelanggan dipamerkan"}, {"id": "1f", "l": "Pengurusan aduan – carta alir & proses dipamerkan"}, {"id": "1g", "l": "Pengurusan statistik dan SMRP"}, {"id": "1h", "l": "Mesyuarat jabatan/unit — surat panggilan, minit, maklumbalas, kehadiran, akuan membaca minit"}, {"id": "1i", "l": "Dokumentasi pesakit menggunakan borang penilaian fisioterapi yang betul, lengkap dan format POMR"}, {"id": "1j", "l": "Penyampaian maklumat — minit mesyuarat jabatan/unit & papan informasi"}]}, {"id": "s2", "t": "2 — Polisi dan Prosedur", "items": [{"id": "2a", "l": "Polisi jabatan/unit dikemaskini dan terkini (diperaku & bertarikh)"}, {"id": "2b", "l": "Bukti penyampaian maklumat ada & mudah dirujuk (akuan membaca)"}, {"id": "2c", "l": "Fisioterapi care protocol ada & mudah dirujuk"}, {"id": "2d", "l": "Standard Operating Prosedur ada & mudah dirujuk"}, {"id": "2e", "l": "Orientasi dan consent pesakit / modul orientasi"}, {"id": "2f", "l": "Hak dan privasi pesakit (dipamerkan)"}]}, {"id": "s3", "t": "3 — Fasiliti dan Kelengkapan", "items": [{"id": "3a", "l": "Penggunaan KEWPA"}, {"id": "3b", "l": "Fail pelupusan"}, {"id": "3c", "l": "Penjagaan aset — PPM dijalankan mengikut jadual"}, {"id": "3d", "l": "Pengurusan stor dan stok teratur dan direkodkan"}, {"id": "3e", "l": "Sistem panggilan kecemasan – code blue / carta alir"}, {"id": "3f", "l": "Tandas sesuai untuk OKU — grab bar & emergency call bell berfungsi"}]}, {"id": "s4", "t": "4 — Peningkatan Aktiviti Kualiti & Keselamatan", "items": [{"id": "4a", "l": "Pengumpulan data NIA/KPI — data, pemantauan, laporan BSKB/BPKK, SIQ/RCA"}, {"id": "4b", "l": "Semakan laporan audit personel"}, {"id": "4c", "l": "Inovasi / KIK / QAP / Clinical Audit / EKSA / Pain Free"}, {"id": "4d", "l": "Kajian kepuasan pelanggan — 2 kali setahun"}, {"id": "4e", "l": "Kajian piagam pelanggan — 1 kali setahun"}, {"id": "4f", "l": "Latihan keselamatan & kesihatan — semua kakitangan hadir"}, {"id": "4fi", "l": "f-i Pelan Tindakan Kecemasan Kebakaran & Bencana (polisi, floor plan, fire extinguisher, tarikh luput)"}, {"id": "4fii", "l": "f-ii BLS"}, {"id": "4fiii", "l": "f-iii Infection Control"}, {"id": "4i", "l": "Incident Reporting / RCA"}, {"id": "4j", "l": "Penilaian HIRARC bagi rawatan/prosedur berisiko (jika berkenaan)"}]}, {"id": "s5", "t": "5 — Sumber Manusia", "items": [{"id": "5a", "l": "Surat lantikan ketua unit/jabatan dan deskripsi tugas"}, {"id": "5b", "l": "MyPortfolio dikemaskini dan terkini"}, {"id": "5c", "l": "Surat lantikan AJK, jawatankuasa dan lain-lain"}, {"id": "5d", "l": "Sijil pendaftaran dan amalan MAHPC terkini"}, {"id": "5e", "l": "Orientasi anggota baru"}, {"id": "5f", "l": "Fail CPD"}, {"id": "5g", "l": "Credentialing / Privileging"}, {"id": "5h", "l": "Program mentor/kompetensi — jadual penyeliaan & laporan (jika berkenaan)"}, {"id": "5i", "l": "Perancangan kursus tahunan"}, {"id": "5j", "l": "Jadual tugas"}, {"id": "5k", "l": "Pengurusan cuti anggota"}, {"id": "5l", "l": "Etika pemakaian kakitangan kerajaan"}]}];
+var S2=[{"id": "pa", "t": "Part A — Clinical Documentation", "items": [{"id": "d1", "l": "1. Appropriate Assessment Form is used"}, {"id": "d2", "l": "2. Presenting condition / problem is well documented"}, {"id": "d3", "l": "3. Pain is well documented (VAS/NRS/Wong Baker/FLACC)"}, {"id": "d4", "l": "4. Relevant symptoms are marked on the body chart"}, {"id": "d5", "l": "5. Special questions are addressed (general health, past history, medication)"}, {"id": "d6", "l": "6. Current history is well documented (onset, mechanism of injury)"}, {"id": "d7", "l": "7. Past history is well documented (if relevant)"}, {"id": "d8", "l": "8. Observation is relevant and well documented (posture, gait, local findings)"}, {"id": "d9", "l": "9. Palpation is relevant and well documented (warmth, swelling, crepitus)"}, {"id": "d10", "l": "10. Assessment tools & outcome measures are documented (MMT, ROM, Oswestry, MAS)"}, {"id": "d11", "l": "11. Physiotherapist's Impression is adequately recorded"}, {"id": "d12a", "l": "12.1 Goals — Short term (specific aspects by priority)"}, {"id": "d12b", "l": "12.2 Goals — Long term (realistic approach to prognosis)"}, {"id": "d13", "l": "13. Treatment plan is well recorded"}, {"id": "d14", "l": "14. Evidence of informed consent obtained from patient"}, {"id": "d15", "l": "15. Interventions implemented according to the treatment plan"}, {"id": "d16", "l": "16. Evidence of all dispensed advice / patient education"}, {"id": "d17", "l": "17. Subjective markers reviewed at each session"}, {"id": "d18", "l": "18. Objective markers reviewed at each session"}, {"id": "d19", "l": "19. Analysis of problem is recorded (ICIDH model)"}, {"id": "d20", "l": "20. Changes in treatment plan are well documented"}, {"id": "d21", "l": "21. Discharge plan is adequately recorded"}, {"id": "d22", "l": "22. Documentation of every visit in SOAP format"}, {"id": "d23a", "l": "23.1 Documented records are Concise"}, {"id": "d23b", "l": "23.2 Legible — clear enough to be read"}, {"id": "d23c", "l": "23.3 Logical sequence — chronologically recorded"}, {"id": "d24", "l": "24. Assessment forms Signed & Stamped after each entry (MAHPC number & date)"}]}, {"id": "pb", "t": "Part B — SOP & Protocols", "items": [{"id": "d25a", "l": "25.1 Standard Operating Procedures — all 8 SOPs (Neuro, MS, Geriatric, Respiratory, Sports, Pediatric, Urinary, Operational)"}, {"id": "d25b", "l": "25.2 Physiotherapy Care Protocols — endorsed by Physiotherapy Technical Committee"}, {"id": "d25c", "l": "25.3 Best Statements — concise practical clinical guidelines, staff aware and apply"}]}];
+var S3=[{"id": "p1", "t": "Bahagian 1 — Pengurusan Klinikal", "items": [{"id": "p1a", "l": "Pengetahuan berkaitan diagnosis / sejarah pesakit"}, {"id": "p1b", "l": "Borang penilaian fisioterapi digunakan dan tepat"}, {"id": "p1c", "l": "Penilaian subjektif"}, {"id": "p1d", "l": "Penilaian objektif"}, {"id": "p1e", "l": "Kemahiran penggunaan alat pengukur"}, {"id": "p1f", "l": "Analisis dan mengenalpasti masalah"}, {"id": "p1g", "l": "Rancang rawatan"}, {"id": "p1h", "l": "Pemilihan rawatan"}, {"id": "p1i", "l": "Kemahiran aplikasi alat rawatan"}, {"id": "p1j", "l": "Kemahiran aplikasi teknik rawatan"}, {"id": "p1k", "l": "Pendidikan pesakit"}, {"id": "p1l", "l": "Privasi pesakit"}, {"id": "p1m", "l": "Aspek keselamatan"}, {"id": "p1n", "l": "Kemahiran komunikasi"}, {"id": "p1o", "l": "Mencapai ketetapan bilangan pesakit yang disasarkan"}, {"id": "p1p", "l": "Menjalankan tugas mengikut jadual yang diarahkan"}]}, {"id": "p2", "t": "Bahagian 2 — Pengurusan Aktiviti Kualiti", "items": [{"id": "p2a", "l": "Pengisian Statistik / SMRP / Reten"}, {"id": "p2b", "l": "Pengisian KPI dan NIA"}, {"id": "p2c", "l": "Penglibatan aktiviti kualiti fasiliti (Akreditasi, ISO, KIK, QAP, Kajian, Lean)"}]}, {"id": "p3", "t": "Bahagian 3 — Kualiti Peribadi", "items": [{"id": "p3a", "l": "Mematuhi peraturan / arahan"}, {"id": "p3b", "l": "Komitmen dan kesungguhan menjalankan tugas"}, {"id": "p3c", "l": "Sikap diri / tingkah laku"}, {"id": "p3d", "l": "Pakaian kekemasan / mengikut etika kerja"}, {"id": "p3e", "l": "Kehadiran / menepati masa"}, {"id": "p3f", "l": "Pengurusan cuti"}]}, {"id": "p4", "t": "Bahagian 4 — Kepimpinan", "items": [{"id": "p4a", "l": "Membuat keputusan"}, {"id": "p4b", "l": "Penyelesaian masalah"}, {"id": "p4c", "l": "Proaktif"}, {"id": "p4d", "l": "Kebolehan membuat keputusan"}]}, {"id": "p5", "t": "Bahagian 5 — Jalinan Hubungan & Kerjasama", "items": [{"id": "p5a", "l": "Kakitangan dalam unit / jabatan"}, {"id": "p5b", "l": "Kakitangan luar unit / jabatan"}, {"id": "p5c", "l": "Pesakit dan waris"}]}];
+var R1={},R2={},R3={};
+var H1=[],H2=[],H3=[];
+var ACH=[];
+try{H1=JSON.parse(localStorage.getItem('ah1')||'[]');}catch(e){}
+try{H2=JSON.parse(localStorage.getItem('ah2')||'[]');}catch(e){}
+try{H3=JSON.parse(localStorage.getItem('ah3')||'[]');}catch(e){}
+var BC=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
+function rC(p){return p>=80?'rc':p>=60?'rb_':p>=40?'rs':'rl';}
+function rL(p){return p>=80?'Cemerlang':p>=60?'Baik':p>=40?'Sederhana':'Lemah';}
+function rS(p){return p>=80?'&#11088;&#11088;&#11088;&#11088;':p>=60?'&#11088;&#11088;&#11088;':p>=40?'&#11088;&#11088;':'&#11088;';}
+function mk1(id){
+  return ['1','2','3','4','N/A'].map(function(v,i){
+    var cl=['r1','r2','r3','r4','rna'][i];
+    var rv=i<4?parseInt(v):'NA';
+    return '<button class="rb '+cl+'" onclick="rt1(\''+id+'\','+JSON.stringify(rv)+',this)">'+v+'</button>';
+  }).join('');
+}
+function mk2(id){
+  return ['0','1','2','N/A'].map(function(v,i){
+    var cl=['d0','d1','d2','rna'][i];
+    var rv=i<3?parseInt(v):'NA';
+    return '<button class="rb '+cl+'" onclick="rt2(\''+id+'\','+JSON.stringify(rv)+',this)">'+v+'</button>';
+  }).join('');
+}
+function mk3(id){
+  return ['1','2','3'].map(function(v,i){
+    var cl=['p1','p2','p3'][i];
+    return '<button class="rb '+cl+'" onclick="rt3(\''+id+'\','+v+',this)">'+v+'</button>';
+  }).join('');
+}
 function bldB1(){
-  const c=document.getElementById('b1-body');c.innerHTML='';
-  S1.forEach(sec=>{
-    const d=document.createElement('div');d.className='card';
-    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s1-${sec.id}">—/—</span></div>`;
-    sec.items.forEach(it=>{
-      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
-        <div class="rg">${[1,2,3,4,'N/A'].map((v,i)=>{const cl=['r1','r2','r3','r4','rna'][i];const rv=i<4?v:'NA';return `<button class="rb ${cl}" onclick="rt1('${it.id}',${JSON.stringify(rv)},this)">${v}</button>`;}).join('')}</div>
-        <textarea class="ita" placeholder="Komen auditor..." oninput="R1['${it.id}_k']=this.value" rows="1"></textarea>
-        <textarea class="ita" placeholder="Penambahbaikan stakeholder..." oninput="R1['${it.id}_p']=this.value" rows="1"></textarea>
-      </div></div>`;
+  var c=document.getElementById('b1-body');c.innerHTML='';
+  S1.forEach(function(sec){
+    var d=document.createElement('div');d.className='card';
+    var h='<div class="ch"><span class="ct">'+sec.t+'</span><span class="cs" id="s1-'+sec.id+'">—/—</span></div>';
+    sec.items.forEach(function(it){
+      h+='<div class="ir"><div class="il">'+it.l+'</div><div class="ic"><div class="rg">'+mk1(it.id)+'</div>';
+      h+='<textarea class="ita" placeholder="Komen auditor..." oninput="R1[\''+it.id+'_k\']=this.value" rows="1"></textarea>';
+      h+='<textarea class="ita" placeholder="Penambahbaikan stakeholder..." oninput="R1[\''+it.id+'_p\']=this.value" rows="1"></textarea>';
+      h+='</div></div>';
     });
     d.innerHTML=h;c.appendChild(d);
   });
 }
 function bldB2(){
-  const c=document.getElementById('b2-body');c.innerHTML='';
-  S2.forEach(sec=>{
-    const d=document.createElement('div');d.className='card';
-    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s2-${sec.id}">—/—</span></div>`;
-    sec.items.forEach(it=>{
-      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
-        <div class="rg">${[0,1,2,'N/A'].map((v,i)=>{const cl=['d0','d1','d2','rna'][i];const rv=i<3?v:'NA';return `<button class="rb ${cl}" onclick="rt2('${it.id}',${JSON.stringify(rv)},this)">${v}</button>`;}).join('')}</div>
-        <textarea class="ita" placeholder="Remarks..." oninput="R2['${it.id}_r']=this.value" rows="1"></textarea>
-      </div></div>`;
+  var c=document.getElementById('b2-body');c.innerHTML='';
+  S2.forEach(function(sec){
+    var d=document.createElement('div');d.className='card';
+    var h='<div class="ch"><span class="ct">'+sec.t+'</span><span class="cs" id="s2-'+sec.id+'">—/—</span></div>';
+    sec.items.forEach(function(it){
+      h+='<div class="ir"><div class="il">'+it.l+'</div><div class="ic"><div class="rg">'+mk2(it.id)+'</div>';
+      h+='<textarea class="ita" placeholder="Remarks..." oninput="R2[\''+it.id+'_r\']=this.value" rows="1"></textarea>';
+      h+='</div></div>';
     });
     d.innerHTML=h;c.appendChild(d);
   });
 }
 function bldB3(){
-  const c=document.getElementById('b3-body');c.innerHTML='';
-  S3.forEach(sec=>{
-    const d=document.createElement('div');d.className='card';
-    let h=`<div class="ch"><span class="ct">${sec.t}</span><span class="cs" id="s3-${sec.id}">—/—</span></div>`;
-    sec.items.forEach(it=>{
-      h+=`<div class="ir"><div class="il">${it.l}</div><div class="ic">
-        <div class="rg">${[1,2,3].map((v,i)=>{const cl=['p1','p2','p3'][i];return `<button class="rb ${cl}" onclick="rt3('${it.id}',${v},this)">${v}</button>`;}).join('')}</div>
-        <textarea class="ita" placeholder="Catatan..." oninput="R3['${it.id}_c']=this.value" rows="1"></textarea>
-      </div></div>`;
+  var c=document.getElementById('b3-body');c.innerHTML='';
+  S3.forEach(function(sec){
+    var d=document.createElement('div');d.className='card';
+    var h='<div class="ch"><span class="ct">'+sec.t+'</span><span class="cs" id="s3-'+sec.id+'">—/—</span></div>';
+    sec.items.forEach(function(it){
+      h+='<div class="ir"><div class="il">'+it.l+'</div><div class="ic"><div class="rg">'+mk3(it.id)+'</div>';
+      h+='<textarea class="ita" placeholder="Catatan..." oninput="R3[\''+it.id+'_c\']=this.value" rows="1"></textarea>';
+      h+='</div></div>';
     });
     d.innerHTML=h;c.appendChild(d);
   });
 }
 function bldPan(){
-  ['p1','p2'].forEach((pid,idx)=>{
-    const src=idx===0?PAN1:PAN2;
-    let h='<div class="card">';
-    src.forEach(r=>{
-      if(r.s)h+=`<div class="sdiv">${r.s}</div>`;
-      else h+=`<div class="pd-r"><div class="pd-i">${r.i}</div><div class="pd-d">${r.d}</div></div>`;
+  var P1=[
+    {s:'PENGURUSAN ORGANISASI'},
+    {i:'Carta Organisasi',d:'Carta organisasi yang terkini, menunjukkan hubungan pelaporan, disahkan dan bertarikh.'},
+    {i:'Visi / Misi',d:'Dipamerkan di kawasan strategik, selaras dengan hospital, disahkan dan bertarikh.'},
+    {i:'Objektif Unit',d:'Objektif perkhidmatan fisioterapi yang jelas, boleh diukur, disemak dan dikemaskini.'},
+    {i:'Sistem Fail Akreditasi / MS ISO',d:'Fail disusun mengikut kategori dan dikemaskini.'},
+    {i:'Fail Unit',d:'Fail berikut lengkap: peribadi, belanjawan, pekeliling, statistik, pelatih, latihan & CME.'},
+    {i:'Piagam Pelanggan',d:'Piagam pelanggan dipamerkan dengan jelas untuk tatapan umum.'},
+    {i:'Pengurusan Aduan',d:'Carta alir dan proses pengurusan aduan dipamerkan dan mudah dirujuk.'},
+    {i:'Statistik & SMRP',d:'Statistik perkhidmatan direkodkan, dipantau dan dihantar kepada pihak berkaitan.'},
+    {i:'Mesyuarat Jabatan / Unit',d:'Fail minit lengkap: surat panggilan, kehadiran, minit, maklum balas, akuan membaca.'},
+    {i:'Penyampaian Maklumat',d:'Minit mesyuarat dan maklumat penting dipamerkan atau disebarkan.'},
+    {s:'POLISI DAN PROSEDUR'},
+    {i:'Polisi Jabatan/Unit',d:'Polisi bertulis yang disahkan dan dikemaskini setiap 3 tahun.'},
+    {i:'Bukti Penyampaian',d:'Semua staf menandatangani akuan penerimaan/membaca polisi.'},
+    {i:'Protokol Rawatan',d:'Protokol rawatan fisioterapi lengkap dan boleh dirujuk.'},
+    {i:'SOP',d:'SOP disediakan untuk semua prosedur klinikal dan bukan klinikal.'},
+    {i:'Modul Orientasi dan Consent',d:'Modul orientasi untuk staf baharu dan consent form untuk pesakit.'},
+    {i:'Hak dan Privasi Pesakit',d:'Dipamerkan dengan jelas dan dihormati dalam semua interaksi rawatan.'},
+    {s:'FASILITI DAN KELENGKAPAN'},
+    {i:'Penggunaan KEWPA',d:'Borang KEWPA digunakan untuk pemantauan aset dengan betul.'},
+    {i:'Fail Pelupusan',d:'Fail lengkap dengan senarai item dilupus dan tarikh kelulusan.'},
+    {i:'Penjagaan Aset',d:'Penyelenggaraan berjadual PPM dijalankan dan direkodkan.'},
+    {i:'Pengurusan Stor dan Stok',d:'Rekod keluar masuk stok dikemaskini dan sistematik.'},
+    {i:'Sistem Panggilan Kecemasan',d:'Carta alir Code Blue dipamerkan, sistem berfungsi.'},
+    {i:'Tandas OKU',d:'Lengkap dengan grab bar dan loceng kecemasan yang berfungsi.'},
+    {s:'PENINGKATAN AKTIVITI KUALITI'},
+    {i:'Pengumpulan Data NIA/KPI',d:'Senarai indikator, data dikumpul, dipantau, dihantar ke penyelaras negeri.'},
+    {i:'Semakan Audit Personel',d:'Audit prestasi staf dijalankan secara berkala dan direkodkan.'},
+    {i:'Inovasi / QAP / KIK / EKSA',d:'Aktiviti inovasi/kualiti dilaksanakan dan direkodkan.'},
+    {i:'Kajian Kepuasan Pelanggan',d:'Dijalankan dua kali setahun, hasil dianalisis.'},
+    {i:'Kajian Piagam Pelanggan',d:'Sekurang-kurangnya sekali setahun.'},
+    {i:'Latihan Keselamatan',d:'Semua staf hadiri latihan kebakaran, BLS, kawalan jangkitan.'},
+    {i:'Laporan Insiden & RCA',d:'Semua kejadian dilaporkan, disiasat, ada tindakan pembetulan.'},
+    {i:'Penilaian HIRARC',d:'Penilaian risiko untuk prosedur rawatan berisiko.'},
+    {s:'SUMBER MANUSIA'},
+    {i:'Surat Lantikan Ketua Unit',d:'Disimpan bersama deskripsi tugas rasmi.'},
+    {i:'MyPortfolio',d:'Dikemaskini, mengandungi peranan dan tanggungjawab staf.'},
+    {i:'Surat Lantikan AJK',d:'Salinan surat pelantikan disimpan dan dikemaskini.'},
+    {i:'Sijil Pendaftaran MAHPC',d:'Semua fisioterapis berdaftar dengan MAHPC dan sijil dikemaskini.'},
+    {i:'Orientasi Anggota Baharu',d:'Program orientasi lengkap dengan senarai semak dan kehadiran.'},
+    {i:'Fail CPD',d:'Rekod kursus, latihan dan CME setiap staf direkodkan.'},
+    {i:'Credentialing / Privileging',d:'Dilaksanakan bagi Optional/Advance Procedure.'},
+    {i:'Program Mentor / Kompetensi',d:'Jadual penyeliaan, laporan prestasi dan program mentor direkodkan.'},
+    {i:'Perancangan Kursus Tahunan',d:'Pelan latihan tahunan disediakan dan dilaksanakan.'},
+    {i:'Jadual Tugas',d:'Jadual harian/bulanan dikemaskini, adil dan mengikut keperluan semasa.'},
+    {i:'Pengurusan Cuti',d:'Fail serta rekod permohonan dan kelulusan cuti lengkap.'},
+    {i:'Etika Pemakaian',d:'Kakitangan berpakaian mengikut pekeliling kerajaan.'},
+  ];
+  var P2=[
+    {s:'BAHAGIAN A'},
+    {i:'1. Appropriate Assessment Form',d:'Use the correct assessment form based on patient category.'},
+    {i:'2. Presenting Condition',d:'Clearly describe the primary complaint or referral reason.'},
+    {i:'3. Pain Documentation',d:'State type, intensity, location, nature and aggravating/relieving factors.'},
+    {i:'4. Body Chart',d:'Use the body chart to mark pain, numbness, stiffness, weakness etc.'},
+    {i:'5. Special Questions',d:'General health, red flags, medications, bladder/bowel issues, weight loss etc.'},
+    {i:'6. Current History',d:'Explain how the condition began, onset, mechanism of injury.'},
+    {i:'7. Past History',d:'Describe any previous episodes or other medical history.'},
+    {i:'8. Observation',d:'Note posture, gait, facial expressions, swelling, scars.'},
+    {i:'9. Palpation',d:'Findings such as tenderness, spasm, warmth, crepitus.'},
+    {i:'10. Assessment Tools',d:'Record objective tools such as ROM, MMT, Oswestry, MAS.'},
+    {i:"11. Physiotherapist's Impression",d:'Summarise findings, interpret the problem, prioritise issues.'},
+    {i:'12. Goals',d:'State both short- and long-term goals that are SMART.'},
+    {i:'13. Treatment Plan',d:'Document planned intervention strategies.'},
+    {i:'14. Informed Consent',d:'Record that patient has given verbal or written consent.'},
+    {i:'15. Intervention Implementation',d:'Confirm treatment provided is aligned with treatment plan.'},
+    {i:'16. Advice / Information Given',d:'Include home exercise, posture education, precautions etc.'},
+    {i:'17. Subjective Markers',d:'Note pain changes, functional limitations in each session.'},
+    {i:'18. Objective Markers',d:'Reassess ROM, strength, function during follow-ups.'},
+    {i:'19. Problem Analysis',d:'Discuss clinical reasoning based on findings.'},
+    {i:'20. Treatment Plan Revision',d:'Document any changes in treatment plan with rationale.'},
+    {i:'21. Discharge Plan',d:'Include discharge criteria, plan for follow-up or referrals.'},
+    {i:'22. Documentation of Every Visit',d:'Every visit must be documented using SOAP format.'},
+    {i:'23. Documentation Quality',d:'Ensure entries are Concise, Legible, In logical sequence.'},
+    {i:'24. Signature & Stamp',d:'Every entry must be signed, stamped with MAHPC Number and dated.'},
+    {s:'BAHAGIAN B'},
+    {i:'25.1 Standard Operating Procedures',d:'Unit must have all 8 core SOPs. Staff familiar with content.'},
+    {i:'25.2 Physiotherapy Care Protocols',d:'Care protocols reflect evidence-based practices.'},
+    {i:'25.3 Best Statements',d:'Staff should be able to apply relevant Best Statements.'},
+  ];
+  ['p1','p2'].forEach(function(pid,idx){
+    var src=idx===0?P1:P2;
+    var h='<div class="card">';
+    src.forEach(function(r){
+      if(r.s)h+='<div class="sdiv">'+r.s+'</div>';
+      else h+='<div class="pd-r"><div class="pd-i">'+r.i+'</div><div class="pd-d">'+r.d+'</div></div>';
     });
     document.getElementById('pan-'+pid).innerHTML=h+'</div>';
   });
-  document.getElementById('pan-p1').innerHTML+=`<div class="card"><div class="ch"><span class="ct">Jadual Rating</span></div><div style="padding:13px 17px">
-  <table style="width:100%;border-collapse:collapse;font-size:12px">
-    <tr><td style="padding:6px 10px;background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o);font-family:var(--mo)">⭐ 0-39%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Poor — major improvements required</td></tr>
-    <tr><td style="padding:6px 10px;background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o);font-family:var(--mo)">⭐⭐ 40-59%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Fair — several areas need strengthening</td></tr>
-    <tr><td style="padding:6px 10px;background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o);font-family:var(--mo)">⭐⭐⭐ 60-79%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Good — meets most standards</td></tr>
-    <tr><td style="padding:6px 10px;background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o);font-family:var(--mo)">⭐⭐⭐⭐ 80-100%</td><td style="padding:6px 10px;border:1px solid var(--bor)">Excellent — fully complies, high competency</td></tr>
-  </table></div></div>`;
 }
-
-// ===== RATING =====
-function rt1(id,val,btn){R1[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc1();}
-function rt2(id,val,btn){R2[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc2();}
-function rt3(id,val,btn){R3[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');usc3();}
-
-function usc1(){S1.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;}else if(r===undefined){m+=4;}});const el=document.getElementById('s1-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
-function usc2(){S2.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R2[it.id];if(r!==undefined&&r!=='NA'){t+=r;m+=2;}else if(r===undefined){m+=2;}});const el=document.getElementById('s2-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
-function usc3(){S3.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R3[it.id];if(r){t+=r;m+=3;}else{m+=3;}});const el=document.getElementById('s3-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
-
-// ===== CALC =====
+function rt1(id,val,btn){R1[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');usc1();}
+function rt2(id,val,btn){R2[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');usc2();}
+function rt3(id,val,btn){R3[id]=val;btn.closest('.rg').querySelectorAll('.rb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');usc3();}
+function usc1(){S1.forEach(function(sec){var t=0,m=0;sec.items.forEach(function(it){var r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;}else if(r===undefined){m+=4;}});var el=document.getElementById('s1-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
+function usc2(){S2.forEach(function(sec){var t=0,m=0;sec.items.forEach(function(it){var r=R2[it.id];if(r!==undefined&&r!=='NA'){t+=r;m+=2;}else if(r===undefined){m+=2;}});var el=document.getElementById('s2-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
+function usc3(){S3.forEach(function(sec){var t=0,m=0;sec.items.forEach(function(it){var r=R3[it.id];if(r){t+=r;m+=3;}else{m+=3;}});var el=document.getElementById('s3-'+sec.id);if(el)el.textContent=t+'/'+m+' ('+(m>0?Math.round(t/m*100):0)+'%)';});}
 function cl1(){
-  let tot=0,mxt=0;const sD=[];const wk=[];const dist={1:0,2:0,3:0,4:0};
-  S1.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;dist[r]=(dist[r]||0)+1;if(r<=2)wk.push({l:it.l,r:r,s:sec.t.replace(/^\d+\s*[—-]\s*/,'')});}else if(r===undefined){m+=4;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^\d+\s*[—-]\s*/,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
-  const pct=mxt>0?Math.round(tot/mxt*100):0;
-  let rat='⭐ Lemah';if(pct>=80)rat='⭐⭐⭐⭐ Cemerlang';else if(pct>=60)rat='⭐⭐⭐ Baik';else if(pct>=40)rat='⭐⭐ Sederhana';
-  return{tot,mxt,pct,rat,sD,wk,dist};
+  var tot=0,mxt=0,sD=[],wk=[],dist={1:0,2:0,3:0,4:0};
+  S1.forEach(function(sec){var t=0,m=0;sec.items.forEach(function(it){var r=R1[it.id];if(r&&r!=='NA'){t+=r;m+=4;dist[r]=(dist[r]||0)+1;if(r<=2)wk.push({l:it.l,r:r,s:sec.t.replace(/^\d+\s*[\u2014-]\s*/,'')});}else if(r===undefined){m+=4;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^\d+\s*[\u2014-]\s*/,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
+  var pct=mxt>0?Math.round(tot/mxt*100):0;
+  return {tot:tot,mxt:mxt,pct:pct,rat:rS(pct)+' '+rL(pct),sD:sD,wk:wk,dist:dist};
 }
 function cl2(){
-  let tot=0,mxt=0;const wk=[];
-  S2.forEach(sec=>{sec.items.forEach(it=>{const r=R2[it.id];if(r!==undefined&&r!=='NA'){tot+=r;mxt+=2;if(r<=1)wk.push({l:it.l,r:r});}else if(r===undefined){mxt+=2;}});});
-  const pct=mxt>0?Math.round(tot/mxt*100):0;
-  let rat='⭐ Poor';if(pct>=80)rat='⭐⭐⭐⭐ Excellent';else if(pct>=60)rat='⭐⭐⭐ Good';else if(pct>=40)rat='⭐⭐ Fair';
-  return{tot,mxt,pct,rat,wk};
+  var tot=0,mxt=0,wk=[];
+  S2.forEach(function(sec){sec.items.forEach(function(it){var r=R2[it.id];if(r!==undefined&&r!=='NA'){tot+=r;mxt+=2;if(r<=1)wk.push({l:it.l,r:r});}else if(r===undefined){mxt+=2;}});});
+  var pct=mxt>0?Math.round(tot/mxt*100):0;
+  return {tot:tot,mxt:mxt,pct:pct,rat:rS(pct)+' '+(pct>=80?'Excellent':pct>=60?'Good':pct>=40?'Fair':'Poor'),wk:wk};
 }
 function cl3(){
-  let tot=0,mxt=0;const sD=[];const wk=[];
-  S3.forEach(sec=>{let t=0,m=0;sec.items.forEach(it=>{const r=R3[it.id];if(r){t+=r;m+=3;if(r===1)wk.push({l:it.l,r:r,s:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,'')});}else{m+=3;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
-  const pct=mxt>0?Math.round(tot/mxt*100):0;
-  let rat='⭐ Lemah';if(pct>=80)rat='⭐⭐⭐⭐ Cemerlang';else if(pct>=60)rat='⭐⭐⭐ Baik';else if(pct>=40)rat='⭐⭐ Sederhana';
-  return{tot,mxt,pct,rat,sD,wk};
+  var tot=0,mxt=0,sD=[],wk=[];
+  S3.forEach(function(sec){var t=0,m=0;sec.items.forEach(function(it){var r=R3[it.id];if(r){t+=r;m+=3;if(r===1)wk.push({l:it.l,r:r,s:sec.t.replace(/^Bahagian\s*\d+\s*[\u2014-]\s*/i,'')});}else{m+=3;}});tot+=t;mxt+=m;sD.push({t:sec.t.replace(/^Bahagian\s*\d+\s*[\u2014-]\s*/i,''),v:t,m:m,pct:m>0?Math.round(t/m*100):0});});
+  var pct=mxt>0?Math.round(tot/mxt*100):0;
+  return {tot:tot,mxt:mxt,pct:pct,rat:rS(pct)+' '+rL(pct),sD:sD,wk:wk};
 }
-
-// ===== SAVE & RESET =====
-const BC=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
-function rc(pct){return pct>=80?'rc':pct>=60?'rb_':pct>=40?'rs':'rl';}
-
 function sv(n){
-  const td=new Date().toISOString().slice(0,10);
+  var td=new Date().toISOString().slice(0,10);
   if(n===1){
-    const r=cl1();
-    const items={};S1.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t.replace(/^\d+\s*[—-]\s*/,''),r:R1[it.id],k:R1[it.id+'_k']||'',p:R1[it.id+'_p']||''};}));
+    var r=cl1();var items={};
+    S1.forEach(function(sec){sec.items.forEach(function(it){items[it.id]={l:it.l,s:sec.t.replace(/^\d+\s*[\u2014-]\s*/,''),r:R1[it.id],k:R1[it.id+'_k']||'',p:R1[it.id+'_p']||''};});});
     H1.push({fas:document.getElementById('b1-f').value||'N/A',trk:document.getElementById('b1-d').value||td,aud:document.getElementById('b1-au').value||'—',aue:document.getElementById('b1-ae').value||'—',tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,sD:r.sD,wk:r.wk,dist:r.dist,items:items,la:document.getElementById('b1-la').value,ke:document.getElementById('b1-ke').value,ca:document.getElementById('b1-ca').value,cd:document.getElementById('b1-cd').value});
-    try{localStorage.setItem('aud_h1',JSON.stringify(H1));}catch(e){}
+    try{localStorage.setItem('ah1',JSON.stringify(H1));}catch(e){}
     sp('dash');sdash('d1',null);
   }
   if(n===2){
-    const r=cl2();
-    const items={};S2.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t,r:R2[it.id],rem:R2[it.id+'_r']||''};}));
+    var r=cl2();var items={};
+    S2.forEach(function(sec){sec.items.forEach(function(it){items[it.id]={l:it.l,s:sec.t,r:R2[it.id],rem:R2[it.id+'_r']||''};});});
     H2.push({fas:document.getElementById('b2-f').value||'N/A',trk:document.getElementById('b2-d').value||td,ev:document.getElementById('b2-ev').value||'—',jw:document.getElementById('b2-jw').value||'—',tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,wk:r.wk,items:items,ko:document.getElementById('b2-ko').value});
-    try{localStorage.setItem('aud_h2',JSON.stringify(H2));}catch(e){}
+    try{localStorage.setItem('ah2',JSON.stringify(H2));}catch(e){}
     sp('dash');sdash('d2',null);
   }
   if(n===3){
-    const r=cl3();
-    const items={};S3.forEach(sec=>sec.items.forEach(it=>{items[it.id]={l:it.l,s:sec.t.replace(/^Bahagian \d+\s*[—-]\s*/i,''),r:R3[it.id],c:R3[it.id+'_c']||''};}));
+    var r=cl3();var items={};
+    S3.forEach(function(sec){sec.items.forEach(function(it){items[it.id]={l:it.l,s:sec.t.replace(/^Bahagian\s*\d+\s*[\u2014-]\s*/i,''),r:R3[it.id],c:R3[it.id+'_c']||''};});});
     H3.push({pyd:document.getElementById('b3-pyd').value||'N/A',pen:document.getElementById('b3-pen').value||'N/A',fas:document.getElementById('b3-f').value||'N/A',trk:document.getElementById('b3-d').value||td,tot:r.tot,max:r.mxt,pct:r.pct,rat:r.rat,sD:r.sD,wk:r.wk,items:items,ul:document.getElementById('b3-ul').value});
-    try{localStorage.setItem('aud_h3',JSON.stringify(H3));}catch(e){}
+    try{localStorage.setItem('ah3',JSON.stringify(H3));}catch(e){}
     sp('dash');sdash('d3',null);
   }
 }
 function rb(n){
-  if(n===1){R1={};document.querySelectorAll('#b1-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b1-body .ita').forEach(t=>t.value='');usc1();}
-  if(n===2){R2={};document.querySelectorAll('#b2-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b2-body .ita').forEach(t=>t.value='');usc2();}
-  if(n===3){R3={};document.querySelectorAll('#b3-body .rb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('#b3-body .ita').forEach(t=>t.value='');usc3();}
+  if(n===1){R1={};document.querySelectorAll('#b1-body .rb').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('#b1-body .ita').forEach(function(t){t.value='';});usc1();}
+  if(n===2){R2={};document.querySelectorAll('#b2-body .rb').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('#b2-body .ita').forEach(function(t){t.value='';});usc2();}
+  if(n===3){R3={};document.querySelectorAll('#b3-body .rb').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('#b3-body .ita').forEach(function(t){t.value='';});usc3();}
 }
-
-// ===== CHARTS =====
-function dch(){ACH.forEach(c=>{try{c.destroy();}catch(e){}});ACH=[];}
-
-// ===== DASHBOARD PER FACILITY =====
-function fdKey(s){return s.replace(/[^a-zA-Z0-9]/g,'_');}
-
-function toggleFD(id){
-  const el=document.getElementById(id);if(!el)return;
-  const show=el.style.display==='none';
-  el.style.display=show?'block':'none';
-  const arr=el.previousElementSibling&&el.previousElementSibling.querySelector('.arr');
-  if(arr)arr.textContent=show?'▲':'▼';
+function dch(){ACH.forEach(function(c){try{c.destroy();}catch(e){}});ACH=[];}
+function fdk(s){return s.replace(/[^a-zA-Z0-9]/g,'_');}
+function toggleFD(id){var el=document.getElementById(id);if(!el)return;var show=el.style.display==='none';el.style.display=show?'block':'none';var arr=el.previousElementSibling&&el.previousElementSibling.querySelector('.arr');if(arr)arr.textContent=show?'\u25b2':'\u25bc';}
+function fasBar(a,did,nf){
+  var nm=a[nf]||a.fas||'—';
+  var bc=a.pct>=80?'#2a5c3f':a.pct>=60?'#2d5f8a':a.pct>=40?'#c87820':'#a02020';
+  return '<div style="cursor:pointer" onclick="toggleFD(\''+did+'\')"><div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--sur);border:1px solid var(--bor);border-radius:6px;margin-bottom:4px"><span style="flex:1;font-size:13px;font-weight:600">'+nm+'</span><div style="flex:2;height:7px;background:var(--sur2);border-radius:3px;overflow:hidden;border:1px solid var(--bor)"><div style="height:100%;border-radius:3px;width:'+a.pct+'%;background:'+bc+'"></div></div><span style="font-family:var(--mo);font-size:12px;font-weight:500;width:36px;text-align:right">'+a.pct+'%</span><span class="rtag '+rC(a.pct)+'">'+rL(a.pct)+'</span><span class="arr" style="font-size:10px;color:var(--tx3)">\u25bc</span></div></div>';
 }
-
-function fasBar(a,detId){
-  const bc=a.pct>=80?'#2a5c3f':a.pct>=60?'#2d5f8a':a.pct>=40?'#c87820':'#a02020';
-  return `<div style="cursor:pointer" onclick="toggleFD('${detId}')">
-    <div style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--sur);border:1px solid var(--bor);border-radius:6px;margin-bottom:4px">
-      <span style="flex:1;font-size:13px;font-weight:600">${a.fas||a.pyd}</span>
-      <div style="flex:2;height:7px;background:var(--sur2);border-radius:3px;overflow:hidden;border:1px solid var(--bor)"><div style="height:100%;border-radius:3px;width:${a.pct}%;background:${bc}"></div></div>
-      <span style="font-family:var(--mo);font-size:12px;font-weight:500;width:36px;text-align:right">${a.pct}%</span>
-      <span class="rtag ${rc(a.pct)}" style="white-space:nowrap">${a.rat}</span>
-      <span class="arr" style="font-size:10px;color:var(--tx3)">▼</span>
-    </div>
-  </div>`;
-}
-
-function fdInfo(rows){
-  return `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin-bottom:11px">${rows.map(r=>`<div><div class="fd-lbl">${r[0]}</div><div class="fd-val">${r[1]}</div></div>`).join('')}</div>`;
-}
-
-function fdSections(sD){
-  if(!sD||!sD.length)return '';
-  return '<div style="margin-bottom:10px">'+sD.map((s,i)=>`<div class="pr"><span class="pn" style="font-size:11px">${s.t}</span><div class="pt"><div class="pf" style="width:${s.pct}%;background:${BC[i%BC.length]}"></div></div><span class="pp">${s.pct}%</span></div>`).join('')+'</div>';
-}
-
-function fdDist(dist){
-  if(!dist)return '';
-  return `<div class="dist-tags">
-    <span class="dtag" style="background:var(--r1b);color:var(--r1t);border:1px solid var(--r1o)">Markah 1: ${dist[1]||0}</span>
-    <span class="dtag" style="background:var(--r2b);color:var(--r2t);border:1px solid var(--r2o)">Markah 2: ${dist[2]||0}</span>
-    <span class="dtag" style="background:var(--r3b);color:var(--r3t);border:1px solid var(--r3o)">Markah 3: ${dist[3]||0}</span>
-    <span class="dtag" style="background:var(--r4b);color:var(--r4t);border:1px solid var(--r4o)">Markah 4: ${dist[4]||0}</span>
-  </div>`;
-}
-
-function fdWeak(wk,cls1,cls2,lbl1,lbl2){
+function fdInfo(rows){return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin-bottom:10px">'+rows.map(function(r){return '<div><div class="fd-lbl">'+r[0]+'</div><div class="fd-val">'+r[1]+'</div></div>';}).join('')+'</div>';}
+function fdSec(sD){if(!sD||!sD.length)return '';return '<div style="margin-bottom:10px">'+sD.map(function(s,i){return '<div class="pr"><span class="pn" style="font-size:11px">'+s.t+'</span><div class="pt"><div class="pf" style="width:'+s.pct+'%;background:'+BC[i%BC.length]+'"></div></div><span class="pp">'+s.pct+'%</span></div>';}).join('')+'</div>';}
+function fdDist(dist){if(!dist)return '';return '<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px"><span class="bdg b1">Markah 1: '+(dist[1]||0)+'</span><span class="bdg b2">Markah 2: '+(dist[2]||0)+'</span><span class="bdg b3">Markah 3: '+(dist[3]||0)+'</span><span class="bdg b4">Markah 4: '+(dist[4]||0)+'</span></div>';}
+function fdWeak(wk,lbl){
   if(!wk||!wk.length)return '';
-  let h=`<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px">Item Memerlukan Perhatian</div>`;
-  wk.forEach(w=>{h+=`<div class="${w.r===1||w.r===0?cls1:cls2}" style="margin-bottom:3px"><div class="wl">${w.l}<span class="badge ${w.r===1||w.r===0?'b1':'b2'}">${lbl1} ${w.r}</span></div><div class="wm">${w.s||''}</div></div>`;});
+  var h='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px">Item Memerlukan Perhatian</div>';
+  wk.forEach(function(w){h+='<div class="'+(w.r<=1?'wi1':'wi2')+'"><div class="wl">'+w.l+'<span class="bdg '+(w.r<=1?'b1':'b2')+'">'+lbl+' '+w.r+'</span></div><div class="wm">'+(w.s||'')+'</div></div>';});
   return h;
 }
-
 function fdItems(items,cols){
   if(!items)return '';
-  const th=cols.map(c=>`<th class="item-tbl">${c}</th>`).join('');
-  let h=`<details><summary>Lihat semua item ▸</summary><table class="item-tbl" style="margin-top:7px"><thead><tr>${th}</tr></thead><tbody>`;
-  Object.values(items).forEach(it=>{
-    const rv=it.r;const nr=rv!==undefined&&rv!==null&&rv!=='NA';
-    const isLow=nr&&(rv===0||rv===1);const isMid=nr&&rv===2;const isHi=nr&&(rv===3||rv===4);
-    const bg=isLow?'var(--r1b)':isMid?'var(--r2b)':isHi?'var(--r3b)':'';
-    const tc=isLow?'var(--r1t)':isMid?'var(--r2t)':isHi?'var(--r3t)':'var(--tx3)';
-    const extra=cols.length===4?`<td class="item-tbl">${it.k||'—'}</td><td class="item-tbl">${it.p||'—'}</td>`:cols.length===3&&cols[2]==='Remarks'?`<td class="item-tbl">${it.rem||'—'}</td>`:`<td class="item-tbl">${it.c||'—'}</td>`;
-    h+=`<tr><td class="item-tbl">${it.l}</td><td class="item-tbl" style="text-align:center;background:${bg};color:${tc};font-family:var(--mo);font-weight:600">${rv!==undefined&&rv!==null?rv:'—'}</td>${extra}</tr>`;
+  var h='<details><summary>Lihat semua item &#9658;</summary><table class="itbl"><thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+  Object.values(items).forEach(function(it){
+    var rv=it.r;var nr=rv!==undefined&&rv!==null&&rv!=='NA';
+    var isL=nr&&rv<=1,isM=nr&&rv===2,isH=nr&&rv>=3;
+    var bg=isL?'var(--r1b)':isM?'var(--r2b)':isH?'var(--r3b)':'';
+    var tc=isL?'var(--r1t)':isM?'var(--r2t)':isH?'var(--r3t)':'var(--tx3)';
+    var ex=cols.length===4?'<td>'+( it.k||'—')+'</td><td>'+(it.p||'—')+'</td>':it.rem!==undefined?'<td>'+(it.rem||'—')+'</td>':'<td>'+(it.c||'—')+'</td>';
+    h+='<tr><td>'+it.l+'</td><td style="text-align:center;background:'+bg+';color:'+tc+';font-family:var(--mo);font-weight:600">'+(rv!==undefined&&rv!==null?rv:'—')+'</td>'+ex+'</tr>';
   });
-  h+=`</tbody></table></details>`;return h;
+  h+='</tbody></table></details>';return h;
 }
-
-function fdHistory(fas,hist,n){
-  const prev=hist.filter(x=>x.fas===fas&&x!==hist[hist.length-1]).sort((a,b)=>b.trk.localeCompare(a.trk));
-  if(!prev.length)return '';
-  let h=`<div style="margin-top:10px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:5px">Sejarah Audit Terdahulu</div><table class="htbl"><thead><tr><th>Tarikh</th><th>${n===2?'Evaluator':'Auditor'}</th><th>Markah</th><th>Rating</th></tr></thead><tbody>`;
-  prev.forEach(x=>{h+=`<tr><td>${x.trk}</td><td>${n===2?x.ev:x.aud}</td><td style="font-family:var(--mo)">${x.pct}%</td><td><span class="rtag ${rc(x.pct)}">${x.pct}%</span></td></tr>`;});
-  h+=`</tbody></table></div>`;return h;
-}
-
 function rdD1(){
-  dch();const el=document.getElementById('dash-d1');
+  dch();var el=document.getElementById('dash-d1');
   if(!H1.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit perkhidmatan lagi. Isi borang dan simpan.</div></div>';return;}
-  const latest={};H1.forEach(a=>{if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
-  const arr=Object.values(latest).sort((a,b)=>b.pct-a.pct);
-  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Semua Fasiliti — Borang Perkhidmatan</span><span class="cs">${arr.length} fasiliti</span></div><div style="padding:13px 17px">`;
-  arr.forEach(a=>{
-    const did=`fd1_${fdKey(a.fas)}`;
-    let det=`<div id="${did}" class="fd" style="display:none">`;
-    det+=fdInfo([['Tarikh Audit',a.trk],['Auditor',a.aud],['Auditee',a.aue||'—'],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
-    det+=fdSections(a.sD)+fdDist(a.dist)+fdWeak(a.wk,'wi1','wi2','Markah','Markah');
+  var latest={};H1.forEach(function(a){if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
+  var arr=Object.values(latest).sort(function(a,b){return b.pct-a.pct;});
+  var h='<div class="card"><div class="ch"><span class="ct">Ringkasan Semua Fasiliti</span><span class="cs">'+arr.length+' fasiliti</span></div><div style="padding:12px 16px">';
+  arr.forEach(function(a){
+    var did='fd1_'+fdk(a.fas);
+    var det='<div id="'+did+'" class="fd" style="display:none">';
+    det+=fdInfo([['Tarikh Audit',a.trk],['Auditor',a.aud],['Auditee',a.aue||'—'],['Markah',a.tot+'/'+a.max+' ('+a.pct+'%)']]);
+    det+=fdSec(a.sD)+fdDist(a.dist)+fdWeak(a.wk,'Markah');
     det+=fdItems(a.items,['Item','Markah','Komen Auditor','Penambahbaikan']);
-    if(a.la||a.ke||a.ca||a.cd){det+=`<div style="margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px">`;if(a.la)det+=`<div><div class="fd-lbl">Lain-lain Penemuan</div><div style="font-size:11px">${a.la}</div></div>`;if(a.ke)det+=`<div><div class="fd-lbl">Kesimpulan</div><div style="font-size:11px">${a.ke}</div></div>`;if(a.ca)det+=`<div><div class="fd-lbl">Catatan</div><div style="font-size:11px">${a.ca}</div></div>`;if(a.cd)det+=`<div><div class="fd-lbl">Cadangan</div><div style="font-size:11px">${a.cd}</div></div>`;det+=`</div>`;}
-    det+=fdHistory(a.fas,H1,1);
-    det+=`</div>`;
-    h+=fasBar(a,did)+det;
+    if(a.la||a.ke||a.ca||a.cd){det+='<div style="margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px">';if(a.la)det+='<div><div class="fd-lbl">Lain-lain Penemuan</div><div style="font-size:11px">'+a.la+'</div></div>';if(a.ke)det+='<div><div class="fd-lbl">Kesimpulan</div><div style="font-size:11px">'+a.ke+'</div></div>';if(a.ca)det+='<div><div class="fd-lbl">Catatan</div><div style="font-size:11px">'+a.ca+'</div></div>';if(a.cd)det+='<div><div class="fd-lbl">Cadangan</div><div style="font-size:11px">'+a.cd+'</div></div>';det+='</div>';}
+    var prev=H1.filter(function(x){return x.fas===a.fas;}).sort(function(x,y){return y.trk.localeCompare(x.trk);});
+    if(prev.length>1){det+='<div style="margin-top:9px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;color:var(--tx3);margin-bottom:5px">Sejarah Audit Fasiliti Ini</div><table class="htbl"><thead><tr><th>Tarikh</th><th>Auditor</th><th>Markah</th><th>Rating</th></tr></thead><tbody>';prev.forEach(function(x){det+='<tr><td>'+x.trk+'</td><td>'+x.aud+'</td><td style="font-family:var(--mo)">'+x.pct+'%</td><td><span class="rtag '+rC(x.pct)+'">'+x.pct+'%</span></td></tr>';});det+='</tbody></table></div>';}
+    det+='</div>';
+    h+=fasBar(a,did,'fas')+det;
   });
-  h+=`</div></div>`;
-  if(arr.length>1){
-    h+=`<div class="card"><div class="ch"><span class="ct">Carta Perbandingan Fasiliti</span></div><div style="position:relative;padding:13px;height:${Math.max(200,arr.length*50+80)}px"><canvas id="cmp1"></canvas></div></div>`;
-  }
-  const multi=H1.filter(a=>H1.filter(x=>x.fas===a.fas).length>1);
-  if(multi.length){
-    h+=`<div class="card"><div class="ch"><span class="ct">Trend Markah Mengikut Fasiliti</span></div><div style="position:relative;padding:13px;height:240px"><canvas id="trnd1"></canvas></div></div>`;
-  }
+  h+='</div></div>';
+  if(arr.length>1){h+='<div class="card"><div class="ch"><span class="ct">Carta Perbandingan Fasiliti</span></div><div style="position:relative;padding:12px;height:'+(Math.max(200,arr.length*50+80))+'px"><canvas id="cmp1"></canvas></div></div>';}
+  var mf=H1.filter(function(a){return H1.filter(function(x){return x.fas===a.fas;}).length>1;});
+  if(mf.length){h+='<div class="card"><div class="ch"><span class="ct">Trend Markah Mengikut Fasiliti</span></div><div style="position:relative;padding:12px;height:240px"><canvas id="trnd1"></canvas></div></div>';}
   el.innerHTML=h;
   if(arr.length>1){
-    const ch=new Chart(document.getElementById('cmp1'),{type:'bar',
-      data:{labels:arr.map(a=>a.fas.length>18?a.fas.substring(0,16)+'…':a.fas),
-        datasets:[{data:arr.map(a=>a.pct),backgroundColor:arr.map(a=>a.pct>=80?'#80c090':a.pct>=60?'#80a8d0':a.pct>=40?'#f0c060':'#e8a0a0'),borderWidth:1}]},
-      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+    var ch=new Chart(document.getElementById('cmp1'),{type:'bar',data:{labels:arr.map(function(a){return a.fas.length>18?a.fas.substring(0,16)+'...':a.fas;}),datasets:[{data:arr.map(function(a){return a.pct;}),backgroundColor:arr.map(function(a){return a.pct>=80?'#80c090':a.pct>=60?'#80a8d0':a.pct>=40?'#f0c060':'#e8a0a0';}),borderWidth:1}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,max:100,ticks:{callback:function(v){return v+'%';}}}}}});
     ACH.push(ch);
   }
-  if(multi.length){
-    const fasL=[...new Set(multi.map(a=>a.fas))];
-    const colors=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
-    const ds=fasL.map((f,i)=>{const pts=H1.filter(a=>a.fas===f).sort((a,b)=>a.trk.localeCompare(b.trk));return{label:f,data:pts.map(p=>({x:p.trk,y:p.pct})),borderColor:colors[i%5],backgroundColor:'transparent',tension:0.3,pointRadius:4};});
-    const tc=new Chart(document.getElementById('trnd1'),{type:'line',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},scales:{x:{type:'category'},y:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+  if(mf.length){
+    var fasL=[...new Set(mf.map(function(a){return a.fas;}))];
+    var cols2=['#2d5f8a','#2a5c3f','#c87820','#a02020','#6a5a8a'];
+    var ds=fasL.map(function(f,i){var pts=H1.filter(function(a){return a.fas===f;}).sort(function(a,b){return a.trk.localeCompare(b.trk);});return{label:f,data:pts.map(function(p){return{x:p.trk,y:p.pct};}),borderColor:cols2[i%5],backgroundColor:'transparent',tension:0.3,pointRadius:4};});
+    var tc=new Chart(document.getElementById('trnd1'),{type:'line',data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},scales:{x:{type:'category'},y:{min:0,max:100,ticks:{callback:function(v){return v+'%';}}}}}});
     ACH.push(tc);
   }
 }
-
 function rdD2(){
-  dch();const el=document.getElementById('dash-d2');
+  dch();var el=document.getElementById('dash-d2');
   if(!H2.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit dokumentasi lagi.</div></div>';return;}
-  const latest={};H2.forEach(a=>{if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
-  const arr=Object.values(latest).sort((a,b)=>b.pct-a.pct);
-  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Semua Fasiliti — Audit Dokumentasi</span><span class="cs">${arr.length} fasiliti</span></div><div style="padding:13px 17px">`;
-  arr.forEach(a=>{
-    const did=`fd2_${fdKey(a.fas)}`;
-    let det=`<div id="${did}" class="fd" style="display:none">`;
-    det+=fdInfo([['Tarikh',a.trk],['Evaluator',a.ev||'—'],['Jawatan',a.jw||'—'],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
-    det+=fdWeak(a.wk,'wi1','wi2','Score','Score');
-    det+=fdItems(a.items,['Item','Score','Remarks']);
-    det+=fdHistory(a.fas,H2,2);
-    det+=`</div>`;
-    h+=fasBar(a,did)+det;
+  var latest={};H2.forEach(function(a){if(!latest[a.fas]||a.trk>latest[a.fas].trk)latest[a.fas]=a;});
+  var arr=Object.values(latest).sort(function(a,b){return b.pct-a.pct;});
+  var h='<div class="card"><div class="ch"><span class="ct">Ringkasan Audit Dokumentasi</span><span class="cs">'+arr.length+' fasiliti</span></div><div style="padding:12px 16px">';
+  arr.forEach(function(a){
+    var did='fd2_'+fdk(a.fas);
+    var det='<div id="'+did+'" class="fd" style="display:none">';
+    det+=fdInfo([['Tarikh',a.trk],['Evaluator',a.ev||'—'],['Jawatan',a.jw||'—'],['Markah',a.tot+'/'+a.max+' ('+a.pct+'%)']]);
+    det+=fdWeak(a.wk,'Score');det+=fdItems(a.items,['Item','Score','Remarks']);
+    det+='</div>';h+=fasBar(a,did,'fas')+det;
   });
-  h+=`</div></div>`;
-  el.innerHTML=h;
+  h+='</div></div>';el.innerHTML=h;
 }
-
 function rdD3(){
-  dch();const el=document.getElementById('dash-d3');
+  dch();var el=document.getElementById('dash-d3');
   if(!H3.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit personel lagi.</div></div>';return;}
-  const byFas={};H3.forEach(a=>{if(!byFas[a.fas])byFas[a.fas]=[];byFas[a.fas].push(a);});
-  let h=`<div class="card"><div class="ch"><span class="ct">Ringkasan Audit Personel Mengikut Unit / Fasiliti</span><span class="cs">${H3.length} rekod</span></div><div style="padding:13px 17px">`;
-  Object.entries(byFas).forEach(([fas,audits])=>{
-    const avg=Math.round(audits.reduce((s,a)=>s+a.pct,0)/audits.length);
-    const bc=avg>=80?'#2a5c3f':avg>=60?'#2d5f8a':avg>=40?'#c87820':'#a02020';
-    h+=`<div class="fas-header"><span style="flex:1;font-size:13px;font-weight:600">${fas}</span><span style="font-size:11px;color:var(--tx2)">${audits.length} staf</span><span style="font-family:var(--mo);font-size:12px;margin-left:8px">${avg}% avg</span></div>`;
-    audits.sort((a,b)=>b.pct-a.pct).forEach(a=>{
-      const did=`fd3_${fdKey(fas+a.pyd+a.trk)}`;
-      let det=`<div id="${did}" class="fd" style="display:none">`;
-      det+=fdInfo([['Penyelia',a.pen],['Tarikh',a.trk],['Markah',`${a.tot}/${a.max} (${a.pct}%)`]]);
-      det+=fdSections(a.sD)+fdWeak(a.wk,'wi1','wi2','Markah','Markah');
-      det+=fdItems(a.items,['Item','Markah','Catatan']);
-      if(a.ul)det+=`<div style="margin-top:8px"><div class="fd-lbl">Ulasan Penyelia</div><div style="font-size:11px;font-style:italic">"${a.ul}"</div></div>`;
-      det+=`</div>`;
-      h+=fasBar(a,did)+det;
+  var byFas={};H3.forEach(function(a){if(!byFas[a.fas])byFas[a.fas]=[];byFas[a.fas].push(a);});
+  var h='<div class="card"><div class="ch"><span class="ct">Ringkasan Audit Personel</span><span class="cs">'+H3.length+' rekod</span></div><div style="padding:12px 16px">';
+  Object.entries(byFas).forEach(function(e){
+    var fas=e[0],aud=e[1];
+    var avg=Math.round(aud.reduce(function(s,a){return s+a.pct;},0)/aud.length);
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:8px 11px;background:var(--sur);border:1px solid var(--bor);border-radius:6px"><span style="flex:1;font-size:13px;font-weight:600">'+fas+'</span><span style="font-size:11px;color:var(--tx2)">'+aud.length+' staf</span><span style="font-family:var(--mo);font-size:12px;margin-left:8px">'+avg+'% avg</span><span class="rtag '+rC(avg)+'">'+rL(avg)+'</span></div>';
+    aud.sort(function(a,b){return b.pct-a.pct;}).forEach(function(a){
+      var did='fd3_'+fdk(fas+a.pyd+a.trk);
+      var det='<div id="'+did+'" class="fd" style="display:none">';
+      det+=fdInfo([['PYD',a.pyd],['Penyelia',a.pen],['Tarikh',a.trk],['Markah',a.tot+'/'+a.max+' ('+a.pct+'%)']]);
+      det+=fdSec(a.sD)+fdWeak(a.wk,'Markah')+fdItems(a.items,['Item','Markah','Catatan']);
+      if(a.ul)det+='<div style="margin-top:8px"><div class="fd-lbl">Ulasan Penyelia</div><div style="font-size:11px;font-style:italic">"'+a.ul+'"</div></div>';
+      det+='</div>';h+=fasBar(a,did,'pyd')+det;
     });
-    h+=`<div style="height:8px"></div>`;
+    h+='<div style="height:8px"></div>';
   });
-  h+=`</div></div>`;
-  el.innerHTML=h;
+  h+='</div></div>';el.innerHTML=h;
 }
-
-// ===== HISTORY =====
 function rHist(n){
-  const hist=n===1?H1:n===2?H2:H3;
-  const el=document.getElementById('hist-h'+n);
+  var hist=n===1?H1:n===2?H2:H3;
+  var el=document.getElementById('hist-h'+n);
   if(!hist.length){el.innerHTML='<div class="card"><div class="es">Tiada rekod audit lagi.</div></div>';return;}
-  const cols=n===3?['Nama PYD','Unit/Fasiliti','Penyelia','Tarikh','Markah','Rating']:['Fasiliti','Tarikh',n===2?'Evaluator':'Auditor','Markah','Rating'];
-  let h=`<div class="card"><table class="htbl"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`;
-  [...hist].reverse().forEach(a=>{
-    const r=rc(a.pct);
-    const row=n===3?`<td>${a.pyd}</td><td>${a.fas||'—'}</td><td>${a.pen}</td><td>${a.trk}</td>`:n===2?`<td>${a.fas}</td><td>${a.trk}</td><td>${a.ev||'—'}</td>`:`<td>${a.fas}</td><td>${a.trk}</td><td>${a.aud||'—'}</td>`;
-    h+=`<tr>${row}<td style="font-family:var(--mo)">${a.pct}% <span style="font-size:10px;color:var(--tx3)">(${a.tot}/${a.max})</span></td><td><span class="rtag ${r}">${a.pct}%</span></td></tr>`;
+  var cols=n===3?['Nama PYD','Unit/Fasiliti','Penyelia','Tarikh','Markah','Rating']:['Fasiliti','Tarikh',n===2?'Evaluator':'Auditor','Markah','Rating'];
+  var h='<div class="card"><table class="htbl"><thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+  [...hist].reverse().forEach(function(a){
+    var r=rC(a.pct);
+    var row=n===3?'<td>'+a.pyd+'</td><td>'+(a.fas||'—')+'</td><td>'+a.pen+'</td><td>'+a.trk+'</td>':n===2?'<td>'+a.fas+'</td><td>'+a.trk+'</td><td>'+(a.ev||'—')+'</td>':'<td>'+a.fas+'</td><td>'+a.trk+'</td><td>'+(a.aud||'—')+'</td>';
+    h+='<tr>'+row+'<td style="font-family:var(--mo)">'+a.pct+'% <span style="font-size:10px;color:var(--tx3)">('+a.tot+'/'+a.max+')</span></td><td><span class="rtag '+r+'">'+a.pct+'%</span></td></tr>';
   });
-  h+=`</tbody></table></div>`;el.innerHTML=h;
+  h+='</tbody></table></div>';el.innerHTML=h;
 }
-
-// ===== NAV =====
 function sp(p){
-  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
-  document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on');});
+  document.querySelectorAll('.nb').forEach(function(x){x.classList.remove('on');});
   document.getElementById('pg-'+p).classList.add('on');
-  const pgs=['b1','b2','b3','dash','pan','hist'];
+  var pgs=['b1','b2','b3','dash','pan','hist'];
   document.querySelectorAll('.nb')[pgs.indexOf(p)].classList.add('on');
   if(p==='dash'){rdD1();rdD2();rdD3();}
   if(p==='hist'){rHist(1);rHist(2);rHist(3);}
 }
 function sdash(d,btn){
   dch();
-  ['d1','d2','d3'].forEach(x=>document.getElementById('dash-'+x).style.display=x===d?'block':'none');
+  ['d1','d2','d3'].forEach(function(x){document.getElementById('dash-'+x).style.display=x===d?'block':'none';});
   if(d==='d1')rdD1();if(d==='d2')rdD2();if(d==='d3')rdD3();
-  document.querySelectorAll('#pg-dash .stb').forEach((b,i)=>b.classList.toggle('on',['d1','d2','d3'][i]===d));
+  document.querySelectorAll('#pg-dash .stb').forEach(function(b,i){b.classList.toggle('on',['d1','d2','d3'][i]===d);});
 }
-function span2(p,btn){
-  ['p1','p2'].forEach(x=>document.getElementById('pan-'+x).style.display=x===p?'block':'none');
-  document.querySelectorAll('#pg-pan .stb').forEach((b,i)=>b.classList.toggle('on',['p1','p2'][i]===p));
+function spx(p,btn){
+  ['p1','p2'].forEach(function(x){document.getElementById('pan-'+x).style.display=x===p?'block':'none';});
+  document.querySelectorAll('#pg-pan .stb').forEach(function(b,i){b.classList.toggle('on',['p1','p2'][i]===p);});
 }
-function shist(h,btn){
-  ['h1','h2','h3'].forEach(x=>document.getElementById('hist-'+x).style.display=x===h?'block':'none');
-  if(btn)document.querySelectorAll('#pg-hist .stb').forEach((b,i)=>b.classList.toggle('on',['h1','h2','h3'][i]===h));
+function shx(h,btn){
+  ['h1','h2','h3'].forEach(function(x){document.getElementById('hist-'+x).style.display=x===h?'block':'none';});
+  if(btn)document.querySelectorAll('#pg-hist .stb').forEach(function(b,i){b.classList.toggle('on',['h1','h2','h3'][i]===h);});
 }
-
-// ===== INIT =====
-const td=new Date().toISOString().slice(0,10);
-['b1-d','b2-d','b3-d'].forEach(id=>document.getElementById(id).value=td);
+var today=new Date().toISOString().slice(0,10);
+['b1-d','b2-d','b3-d'].forEach(function(id){document.getElementById(id).value=today;});
 bldB1();bldB2();bldB3();bldPan();
 
 </script>
